@@ -1,0 +1,34 @@
+# --- API ---
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic>=2.8
+pydantic-settings>=2.4
+
+# --- Database ---
+sqlalchemy>=2.0.32
+alembic>=1.13
+
+# --- Background jobs ---
+celery[redis]>=5.4
+
+# --- Video / transcription (faster-whisper decodes audio via bundled PyAV) ---
+faster-whisper>=1.1
+
+# --- Embeddings + vector store ---
+sentence-transformers>=3.0
+qdrant-client>=1.12
+
+# --- LLM (LangChain integrations only) ---
+langchain-core>=0.3
+langchain-groq>=0.2
+langchain-qdrant>=0.2
+langchain-huggingface>=0.1
+tenacity>=8.5
+
+# --- Dev / test / scripts ---
+pytest>=8.3
+httpx>=0.27
+requests>=2.32
+yt-dlp>=2024.8.6
+imageio-ffmpeg>=0.5        # bundled ffmpeg binary used by scripts/fetch_sample_videos.py
