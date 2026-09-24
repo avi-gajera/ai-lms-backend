@@ -1,0 +1,36 @@
+{
+  "video_id": "60f6641f-d413-44eb-bfe7-2bddab9597d2",
+  "query": "Why does inflation reduce the purchasing power of money?",
+  "results": [
+    {
+      "chunk_id": "294eb70f-eb0d-4a35-8651-605b4780c270",
+      "chunk_index": 0,
+      "score": 0.7669,
+      "start_time": 0.3,
+      "end_time": 86.3,
+      "timestamp": "00:00-01:26",
+      "topic": "Inflation Overview",
+      "text": "When economists refer to inflation today, they are referring to a general increase in the level of prices of goods and services. So they're really talking about price inflation. The reason why I stress that is because sometimes, especially when the term inflation first came into usage, it actually was referring to monetary inflation or an increase in the money supply. So it was referring to an increase in the money supply. These two ideas are closely related, but it's important to realize that people really are measuring inflation. When they're talking about inflation today, they're talking about price inflation because although these two things are related, they aren't always exactly the same thing. It is generally true that if the money supply and the money supply is more than just the amount of dollars that are printed, it's affected by the amount of lending that's occurring, it's affected by the number of transactions that are occurring in the economy, and if that money supply that's affected by all of those things grows faster than the total real productivity of the economy, then it will generally increase the level of prices. But especially in the short term, there could be other causes of price inflation. You could have things like supply shocks. And a supply shock is the supply of something becomes scarce all of a sudden, and the most typical example of a supply shock is especially in the oil crises in the 1970s."
+    },
+    {
+      "chunk_id": "04f91fd5-889a-460b-a279-d76631b5eca1",
+      "chunk_index": 1,
+      "score": 0.6939,
+      "start_time": 75.3,
+      "end_time": 151.3,
+      "timestamp": "01:15-02:31",
+      "topic": "Inflation Overview",
+      "text": "And a supply shock is the supply of something becomes scarce all of a sudden, and the most typical example of a supply shock is especially in the oil crises in the 1970s. If for whatever reason oil becomes scarce in the country like the United States, then the price of oil and gas would go up, oil and gas would go up. But then these are inputs into a whole set of things, even that banana that you buy at the grocery store, if the price of oil or gas, or both of them, frankly, or the price of oil were to shoot up, even the price of your banana would shoot up because to get that banana to your store, you need to use some gasoline. In fact, a significant fraction of that banana in that store was probably the cost of the gasoline for that ship to take that banana from wherever it was grown to your grocery store, and then on a railroad, and then on a truck or whatever. So this would affect the general prices, not just the prices of oil or gas. So these two things are related, but it's important to realize that people are referring to price inflation. And the general consensus is a little bit of it is a good thing, so a little is good, a little, and I want to stress, little is good, and we're talking one, two, maybe three percent per year,"
+    },
+    {
+      "chunk_id": "297f4016-3563-4097-8ba4-cce2b05418d8",
+      "chunk_index": 2,
+      "score": 0.6852,
+      "start_time": 136.3,
+      "end_time": 227.3,
+      "timestamp": "02:16-03:47",
+      "topic": "Inflation Overview",
+      "text": "And the general consensus is a little bit of it is a good thing, so a little is good, a little, and I want to stress, little is good, and we're talking one, two, maybe three percent per year, but anything larger than that gets a little scary because it can kind of snowball on itself, and we'll talk about that in future videos when we talk about hyperinflation. And economists are also afraid of inflation where to ever get negative. That leads to deflation, and we'll talk in future videos why in many circles that is viewed as a scary thing. Now, in the United States, the inflation is measured with the Consumer Price Index CPI, and you'll always hear this reported in the news, especially if you watch some of the business programming. And they're actually multiple consumer price indices, the one that people report whenever they say the CPI went up 2%, they're actually referring to the CPI-U. And the U here stands for Urban, Urban Consumers. And the reason why this is the headline CPI, or the one that people actually report, is because most of the country in the United States, they are Urban Consumers. So, this is the CPI that affects the largest number of people's pocketbooks. And the way that it's calculated, it's like the deflator, it's a price index, and like the deflator, or it's measuring a general increase or a general change in the level of prices."
+    }
+  ]
+}

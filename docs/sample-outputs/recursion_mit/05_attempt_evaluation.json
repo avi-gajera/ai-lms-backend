@@ -1,0 +1,146 @@
+{
+  "id": "81f05879-c479-41ef-aa99-6e4f7d65502e",
+  "assessment_id": "d472da40-54de-44f5-9a9d-edbfedd38a33",
+  "learner_id": "demo-learner-001",
+  "submitted_at": "2026-09-23T11:29:36.430717",
+  "total_score": 2.0,
+  "max_score": 8.0,
+  "percentage": 25.0,
+  "answers": [
+    {
+      "question_id": "3017e330-b415-41f0-9357-492fdd74b716",
+      "position": 0,
+      "type": "mcq",
+      "topic": "Depth of Bracket Strings",
+      "prompt": "According to the recursive definition of depth for bracket strings, why is the depth of a string formed as '[' s ']' t defined as the maximum of (1 + depth(s)) and depth(t)?",
+      "response": "Because the outer brackets increase depth by one, and the rest of the string contributes its own depth, so the overall depth is whichever is larger.",
+      "score": 1.0,
+      "is_correct": true,
+      "feedback": "Correct. The transcript explains that putting brackets around s makes the string one deeper than s, and then following it by t yields a depth equal to the larger of (1 + depth(s)) and depth(t). Hence the definition uses the max of those two values.",
+      "improvement_areas": [],
+      "evaluator": "rule",
+      "correct_answer": "Because the outer brackets increase depth by one, and the rest of the string contributes its own depth, so the overall depth is whichever is larger.",
+      "reference_answer": "Because the outer brackets increase depth by one, and the rest of the string contributes its own depth, so the overall depth is whichever is larger."
+    },
+    {
+      "question_id": "107a63fb-9764-4ee1-8a1e-36d71e44a88c",
+      "position": 1,
+      "type": "mcq",
+      "topic": "Recursive Function Definition",
+      "prompt": "When defining a recursive function on a recursively defined data type, what role does the 'constructor case' play in the definition?",
+      "response": "It provides the initial value of the function for the simplest possible element of the type.",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Incorrect. You chose \"It provides the initial value of the function for the simplest possible element of the type\". The correct answer is \"It specifies how to compute the function value for a complex value by referring to the function applied to its immediate sub‑components\". The transcript’s recipe states that for the constructor case, f of the constructor of x is defined using f of x and x, meaning the function is built from the results on the sub‑parts. (see 02:55-04:25 in the video)",
+      "improvement_areas": [
+        "Recursive Function Definition: revisit this concept (see 02:55-04:25 in the video)"
+      ],
+      "evaluator": "rule",
+      "correct_answer": "It specifies how to compute the function value for a complex value by referring to the function applied to its immediate sub‑components.",
+      "reference_answer": "It specifies how to compute the function value for a complex value by referring to the function applied to its immediate sub‑components."
+    },
+    {
+      "question_id": "a23c9061-4ea1-4992-9567-2a411f031779",
+      "position": 2,
+      "type": "mcq",
+      "topic": "Ambiguity in Recursive Definitions",
+      "prompt": "Why does the presence of more than one way to construct an element (e.g., 16 as 8×2 or 2×8) make a recursive definition of a function ambiguous?",
+      "response": "Because it causes the recursion to never reach a base case, leading to infinite loops.",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Incorrect. You chose \"Because it causes the recursion to never reach a base case, leading to infinite loops\". The correct answer is \"Because the function could assign different values depending on which construction is chosen, violating the definition of a function\". The transcript describes that when an element can be built in multiple ways, the recursive definition may give different results (e.g., loggy of 16 being 9 or 7), showing the definition is ambiguous and not a proper function. (see 12:50-14:01 in the video)",
+      "improvement_areas": [
+        "Ambiguity in Recursive Definitions: revisit this concept (see 12:50-14:01 in the video)"
+      ],
+      "evaluator": "rule",
+      "correct_answer": "Because the function could assign different values depending on which construction is chosen, violating the definition of a function.",
+      "reference_answer": "Because the function could assign different values depending on which construction is chosen, violating the definition of a function."
+    },
+    {
+      "question_id": "b47e2e2a-4c28-4d1a-bb8f-eb8d424f8ebc",
+      "position": 3,
+      "type": "true_false",
+      "topic": "Depth of Bracket Strings",
+      "prompt": "The depth of the empty bracket string is defined to be zero because it contains no brackets.",
+      "response": "false",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Incorrect. You answered false. The statement is true. The transcript states, \"We'll call it depth zero,\" establishing the base case that an empty bracket string has depth zero since there are no brackets present. (see 01:21-02:55 in the video)",
+      "improvement_areas": [
+        "Depth of Bracket Strings: revisit this concept (see 01:21-02:55 in the video)"
+      ],
+      "evaluator": "rule",
+      "correct_answer": "true",
+      "reference_answer": "true"
+    },
+    {
+      "question_id": "e939fbc8-872a-4ea2-9569-5c3ca19f33d5",
+      "position": 4,
+      "type": "true_false",
+      "topic": "Recursive Function Definition",
+      "prompt": "When defining a recursive function, the constructor case can assign a value without referring to the function applied to its subcomponents.",
+      "response": "true",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Incorrect. You answered true. The statement is false. The recipe for a recursive function definition says, \"f of the constructor of x is defined using f of x and x,\" meaning the constructor case must reference the function applied to the subcomponents; omitting this would not be a proper recursive definition. (see 02:55-04:25 in the video)",
+      "improvement_areas": [
+        "Recursive Function Definition: revisit this concept (see 02:55-04:25 in the video)"
+      ],
+      "evaluator": "rule",
+      "correct_answer": "false",
+      "reference_answer": "false"
+    },
+    {
+      "question_id": "308bb2be-d00a-41a9-8b3d-898f69386bdc",
+      "position": 5,
+      "type": "short_answer",
+      "topic": "Depth of Bracket Strings",
+      "prompt": "Explain how the recursive definition of the nth power of a number k (zero power is 1, (n+1)th power is k × nth power) reflects structural induction on the natural numbers.",
+      "response": "The definition treats 0 as the base case (0‑th power = 1) and defines the (n+1)‑th power as k multiplied by the n‑th power, exactly matching the way natural numbers are built from 0 using the successor constructor, so proofs can proceed by structural induction on that construction.",
+      "score": 1.0,
+      "is_correct": true,
+      "feedback": "Your answer correctly identifies the base case (0‑th power = 1) and the successor case ((n+1)‑th power = k × nth power) and explains how these correspond to the natural‑number construction, so the structural‑induction connection is clear.",
+      "improvement_areas": [],
+      "evaluator": "llm",
+      "correct_answer": null,
+      "reference_answer": "The definition treats 0 as the base case (0‑th power = 1) and defines the (n+1)‑th power as k multiplied by the n‑th power, exactly matching the way natural numbers are built from 0 using the successor constructor, so proofs can proceed by structural induction on that construction."
+    },
+    {
+      "question_id": "65d061e5-a607-4ed5-9480-8f6571bdd7be",
+      "position": 6,
+      "type": "short_answer",
+      "topic": "Structural Induction Proof",
+      "prompt": "Why does the inequality \\( |r| + 2 \\le 2^{\\text{depth}(r)+1} \\) hold as an equality for the empty string, and what does this reveal about the relationship between length and depth in the base case?",
+      "response": "I'm not sure, maybe it is just a definition from the video.",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Your response does not explain why the inequality becomes an equality for the empty string, nor does it show the calculation or its significance for the base case. It misses the key points about length = 0, depth = 0, and the resulting equality.",
+      "improvement_areas": [
+        "Explain that the empty string has length 0 and depth 0",
+        "Show the calculation 0+2 = 2^{0+1} = 2",
+        "Describe how this equality establishes the base case for the induction"
+      ],
+      "evaluator": "llm",
+      "correct_answer": null,
+      "reference_answer": "Because the empty string has length 0 and depth 0, the expression \\(0+2\\) equals \\(2^{0+1}=2\\); this exact match confirms that the inequality is tight for the base case, providing a solid foundation for the inductive step."
+    },
+    {
+      "question_id": "5544ad1b-70bc-49f1-a5ec-50d5beead6ad",
+      "position": 7,
+      "type": "short_answer",
+      "topic": "Structural Induction Proof",
+      "prompt": "In the inductive step of the depth‑length inequality proof, how does replacing depth(s) and depth(t) with \\(\\max\\{\\text{depth}(s),\\text{depth}(t)\\}\\) help to combine the two exponential terms into a single term involving the depth of r?",
+      "response": null,
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Not attempted. Reference answer: Because depth(s) ≤ max and depth(t) ≤ max, we can replace each exponent with the max, turning the sum of two powers of two into \\(2\\times2^{\\max+1}=2^{\\max+2}\\); this equals \\(2^{\\text{depth}(r)+1}\\) since depth(r) is defined as that max, completing the inductive step.",
+      "improvement_areas": [
+        "Structural Induction Proof: question left unanswered (see 06:23-07:51 in the video)"
+      ],
+      "evaluator": "none",
+      "correct_answer": null,
+      "reference_answer": "Because depth(s) ≤ max and depth(t) ≤ max, we can replace each exponent with the max, turning the sum of two powers of two into \\(2\\times2^{\\max+1}=2^{\\max+2}\\); this equals \\(2^{\\text{depth}(r)+1}\\) since depth(r) is defined as that max, completing the inductive step."
+    }
+  ],
+  "report_url": "/attempts/81f05879-c479-41ef-aa99-6e4f7d65502e/report"
+}

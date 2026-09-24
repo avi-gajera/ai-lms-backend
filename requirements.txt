@@ -25,10 +25,3 @@ langchain-groq>=0.2
 langchain-qdrant>=0.2
 langchain-huggingface>=0.1
 tenacity>=8.5
-
-# --- Dev / test / scripts ---
-pytest>=8.3
-httpx>=0.27
-requests>=2.32
-yt-dlp>=2024.8.6
-imageio-ffmpeg>=0.5        # bundled ffmpeg binary used by scripts/fetch_sample_videos.py

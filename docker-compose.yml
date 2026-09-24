@@ -1,0 +1,111 @@
+# Full stack: API + Celery worker + Redis (broker/results) + Qdrant (vector DB).
+#   docker compose up --build
+# The API applies database migrations on startup; the worker starts once the API is healthy.
+# Tests and the demo run in the opt-in `tools` container (dev image), not in the runtime image:
+#   docker compose run --rm --no-deps tools pytest
+#   docker compose run --rm tools python scripts/demo.py
+
+x-app: &app
+  build:
+    context: .
+    target: runtime
+  image: ai-lms-backend:latest
+  env_file:
+    - path: .env
+      required: false
+  environment: &app-env
+    TASK_BACKEND: celery
+    REDIS_URL: redis://redis:6379/0
+    QDRANT_URL: http://qdrant:6333
+    DATABASE_URL: sqlite:////app/data/lms.db
+    VIDEO_STORAGE_DIR: /app/data/videos
+    SAMPLE_VIDEOS_DIR: /app/sample_data/videos
+    LOG_JSON: "true"
+    CELERY_VISIBILITY_TIMEOUT: ${CELERY_VISIBILITY_TIMEOUT:-1800}
+  volumes:
+    # SQLite + uploaded videos on a Docker volume (a real Linux filesystem): WAL locking between
+    # the api and worker containers is reliable there, unlike on Windows/macOS bind mounts.
+    - lms-data:/app/data
+    - ./sample_data/videos:/app/sample_data/videos:ro
+  restart: unless-stopped
+
+services:
+  api:
+    <<: *app
+    ports:
+      - "8000:8000"
+    environment:
+      <<: *app-env
+      AUTO_MIGRATE: "true"
+    volumes:
+      - lms-data:/app/data
+      - ./sample_data/videos:/app/sample_data/videos:ro
+    depends_on:
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/health', timeout=5).status == 200 else 1)"]
+      interval: 10s
+      timeout: 6s
+      retries: 12
+      start_period: 30s
+
+  worker:
+    <<: *app
+    command: celery -A app.workers.celery_app worker --loglevel=INFO --concurrency=2
+    environment:
+      <<: *app-env
+      AUTO_MIGRATE: "false"
+    depends_on:
+      api:
+        condition: service_healthy  # schema is migrated before the worker writes
+
+  # Opt-in (profile) container on the dev image: pytest + scripts. Never started by `up`.
+  tools:
+    <<: *app
+    build:
+      context: .
+      target: dev
+    image: ai-lms-backend:dev
+    profiles: ["tools"]
+    command: pytest
+    restart: "no"
+    environment:
+      <<: *app-env
+      AUTO_MIGRATE: "false"
+      LMS_BASE_URL: http://api:8000
+    volumes:
+      - lms-data:/app/data  # the demo reads the simulated learner's answer key from the DB
+      - ./sample_data/videos:/app/sample_data/videos:ro
+      - ./docs/sample-outputs:/app/docs/sample-outputs  # demo results land on the host
+    depends_on:
+      api:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:v1.19.1
+    restart: unless-stopped
+    # Not published on the host: Qdrant has no auth configured, and only the api/worker need it
+    # (over the compose network). For the dashboard locally, add  ports: ["127.0.0.1:6333:6333"].
+    volumes:
+      - qdrant-data:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  lms-data:
+  qdrant-data:

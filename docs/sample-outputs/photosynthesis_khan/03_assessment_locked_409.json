@@ -1,0 +1,12 @@
+{
+  "status_code": 409,
+  "error": {
+    "code": "conflict",
+    "message": "Learner has watched 0% of this video; an assessment unlocks at 90%. Report progress via POST /videos/69185a76-4ef9-4758-acb6-de176e8a3ef0/progress.",
+    "request_id": "16502e23-dc96-4cd4-b965-30c5d26da58f",
+    "details": {
+      "progress": 0.0,
+      "threshold": 0.9
+    }
+  }
+}

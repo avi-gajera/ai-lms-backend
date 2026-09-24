@@ -1,0 +1,35 @@
+{
+  "learner_profile": "struggling",
+  "assessment_id": "d472da40-54de-44f5-9a9d-edbfedd38a33",
+  "learner_id": "demo-learner-001",
+  "answers": [
+    {
+      "question_id": "3017e330-b415-41f0-9357-492fdd74b716",
+      "response": "Because the outer brackets increase depth by one, and the rest of the string contributes its own depth, so the overall depth is whichever is larger."
+    },
+    {
+      "question_id": "107a63fb-9764-4ee1-8a1e-36d71e44a88c",
+      "response": "It provides the initial value of the function for the simplest possible element of the type."
+    },
+    {
+      "question_id": "a23c9061-4ea1-4992-9567-2a411f031779",
+      "response": "Because it causes the recursion to never reach a base case, leading to infinite loops."
+    },
+    {
+      "question_id": "b47e2e2a-4c28-4d1a-bb8f-eb8d424f8ebc",
+      "response": "false"
+    },
+    {
+      "question_id": "e939fbc8-872a-4ea2-9569-5c3ca19f33d5",
+      "response": "true"
+    },
+    {
+      "question_id": "308bb2be-d00a-41a9-8b3d-898f69386bdc",
+      "response": "The definition treats 0 as the base case (0‑th power = 1) and defines the (n+1)‑th power as k multiplied by the n‑th power, exactly matching the way natural numbers are built from 0 using the successor constructor, so proofs can proceed by structural induction on that construction."
+    },
+    {
+      "question_id": "65d061e5-a607-4ed5-9480-8f6571bdd7be",
+      "response": "I'm not sure, maybe it is just a definition from the video."
+    }
+  ]
+}

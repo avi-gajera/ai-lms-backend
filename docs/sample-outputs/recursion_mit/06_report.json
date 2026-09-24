@@ -1,0 +1,123 @@
+{
+  "id": "603a2de9-5cb4-461a-aa0e-d68e7a5c4711",
+  "attempt_id": "81f05879-c479-41ef-aa99-6e4f7d65502e",
+  "created_at": "2026-09-23T11:29:41.449667",
+  "overall": {
+    "score": 2.0,
+    "max_score": 8.0,
+    "percentage": 25.0,
+    "correct": 2,
+    "total_questions": 8,
+    "attempted": 7,
+    "band": "needs improvement"
+  },
+  "by_type": {
+    "mcq": {
+      "questions": 3,
+      "correct": 1,
+      "avg_score": 0.33,
+      "accuracy": 0.33
+    },
+    "true_false": {
+      "questions": 2,
+      "correct": 0,
+      "avg_score": 0.0,
+      "accuracy": 0.0
+    },
+    "short_answer": {
+      "questions": 3,
+      "correct": 1,
+      "avg_score": 0.33,
+      "accuracy": 0.33
+    }
+  },
+  "topic_breakdown": [
+    {
+      "topic": "Depth of Bracket Strings",
+      "questions": 3,
+      "correct": 2,
+      "avg_score": 0.67,
+      "accuracy": 0.67,
+      "status": "developing",
+      "video_segments": [
+        "01:21-02:55"
+      ]
+    },
+    {
+      "topic": "Recursive Function Definition",
+      "questions": 2,
+      "correct": 0,
+      "avg_score": 0.0,
+      "accuracy": 0.0,
+      "status": "weakness",
+      "video_segments": [
+        "02:55-04:25"
+      ]
+    },
+    {
+      "topic": "Ambiguity in Recursive Definitions",
+      "questions": 1,
+      "correct": 0,
+      "avg_score": 0.0,
+      "accuracy": 0.0,
+      "status": "weakness",
+      "video_segments": [
+        "12:50-14:01"
+      ]
+    },
+    {
+      "topic": "Structural Induction Proof",
+      "questions": 2,
+      "correct": 0,
+      "avg_score": 0.0,
+      "accuracy": 0.0,
+      "status": "weakness",
+      "video_segments": [
+        "04:13-05:28",
+        "06:23-07:51"
+      ]
+    }
+  ],
+  "strengths": [],
+  "weaknesses": [
+    {
+      "topic": "Recursive Function Definition",
+      "avg_score": 0.0,
+      "rewatch": [
+        "02:55-04:25"
+      ]
+    },
+    {
+      "topic": "Ambiguity in Recursive Definitions",
+      "avg_score": 0.0,
+      "rewatch": [
+        "12:50-14:01"
+      ]
+    },
+    {
+      "topic": "Structural Induction Proof",
+      "avg_score": 0.0,
+      "rewatch": [
+        "04:13-05:28",
+        "06:23-07:51"
+      ]
+    }
+  ],
+  "improvement_areas": [
+    "Recursive Function Definition: revisit this concept (see 02:55-04:25 in the video)",
+    "Ambiguity in Recursive Definitions: revisit this concept (see 12:50-14:01 in the video)",
+    "Depth of Bracket Strings: revisit this concept (see 01:21-02:55 in the video)",
+    "Explain that the empty string has length 0 and depth 0",
+    "Show the calculation 0+2 = 2^{0+1} = 2",
+    "Describe how this equality establishes the base case for the induction",
+    "Structural Induction Proof: question left unanswered (see 06:23-07:51 in the video)"
+  ],
+  "suggestions": [
+    "Rewatch the segment on Recursive Function Definition (02:55‑04:25) and pause to write out the definition in your own words, then create two original examples.",
+    "Review the Ambiguity in Recursive Definitions portion (12:50‑14:01); list the ambiguous cases and practice clarifying them with concrete function definitions.",
+    "Study the Structural Induction Proof sections (04:13‑05:28 and 06:23‑07:51); break the proof into base case and inductive step, and attempt to reconstruct each step on paper without the video.",
+    "Complete additional practice problems on depth of bracket strings (01:21‑02:55) to reinforce the base case and recursive step, checking your answers against the video explanations."
+  ],
+  "ai_summary": "You scored 2 out of 8 points (25%) on the assessment for the \"Recursive Functions\" video, placing you in the \"needs improvement\" band. You showed some grasp of the Depth of Bracket Strings topic, answering two of three questions correctly, but struggled with the core concepts of Recursive Function Definition, Ambiguity in Recursive Definitions, and the Structural Induction Proof, where you did not answer any questions correctly. The low accuracy across MCQs, true/false, and short‑answer formats indicates gaps in both conceptual understanding and application. Focusing on the foundational definitions and the step‑by‑step logic of induction will be key to raising your performance.",
+  "summary_source": "llm"
+}

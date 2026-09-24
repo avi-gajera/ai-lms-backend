@@ -1,0 +1,6 @@
+# Keep LF line endings in the repo and in the Docker build context (CRLF breaks shell/entrypoints
+# inside Linux containers). Binary assets are left untouched.
+* text=auto eol=lf
+*.db binary
+*.mp4 binary
+*.png binary

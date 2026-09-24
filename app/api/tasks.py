@@ -2,10 +2,10 @@
 
 from fastapi import APIRouter
 
-from app.schemas.api import TaskOut
+from app.schemas.api import ERROR_RESPONSES, TaskOut
 from app.workers.dispatch import get_task_status
 
-router = APIRouter(prefix="/tasks", tags=["tasks"])
+router = APIRouter(prefix="/tasks", tags=["tasks"], responses=ERROR_RESPONSES)
 
 
 @router.get("/{task_id}", response_model=TaskOut, summary="Background job status")

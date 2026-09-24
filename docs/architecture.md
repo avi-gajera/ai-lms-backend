@@ -32,8 +32,8 @@ flowchart TB
     C --> V & A & AT & T
     V -- enqueue process_video --> RD
     RD --> W
-    W -- "ffmpeg → faster-whisper" --> W
-    W -- "chunk → topic-label → embed (MiniLM)" --> QD
+    W -- "decode (PyAV) → faster-whisper" --> W
+    W -- "chunk → topic-label → embed (bge-small)" --> QD
     W -- chunks, status --> DB
     W -- topic labels --> LLM
     V -- "/retrieve: filtered search" --> QD
@@ -48,15 +48,15 @@ flowchart TB
 The same diagram as text:
 
 1. **Ingest (async).** `POST /videos` stores the file, creates a `Video(pending)` row, and enqueues `process_video` on Redis. The Celery worker then works through these steps:
-   1. ffmpeg normalizes the audio to 16 kHz mono WAV.
+   1. The audio is decoded and resampled to 16 kHz mono (PyAV, with bundled FFmpeg libraries).
    2. faster-whisper produces timestamped segments.
    3. The segments are grouped into chunks with overlap.
-   4. Groq labels each chunk's topic.
-   5. MiniLM embeds the chunks.
+   4. Groq labels each chunk with its topic, within a length-scaled topic budget.
+   5. bge-small-en-v1.5 embeds the chunks.
    6. The vectors are upserted into Qdrant with idempotent ids, and the chunks into SQLite.
    7. The video status is set to `indexed`.
 2. **Retrieve.** `POST /videos/{id}/retrieve` embeds the query and runs a Qdrant search filtered by `video_id`, returning the top-k chunks with their timestamps and topics.
-3. **Assess.** `POST /videos/{id}/progress` records progress. `POST /assessments` first checks the completion threshold. It then picks representative chunks for each topic, makes one grounded, structured Groq call, validates the output, and saves the questions.
+3. **Assess.** `POST /videos/{id}/progress` records progress. `POST /assessments` first checks the completion threshold. It then picks representative chunks for each topic, makes one grounded, structured Groq call per question type, validates the output, and saves the questions.
 4. **Evaluate + report.** `POST /attempts` grades MCQ and true/false with rules, and short answers with one batched LLM-judge call. It then aggregates results by topic and type without the LLM, and makes one Groq call for the summary text. `GET /attempts/{id}/report` returns the saved report.
 
 ## Module layout

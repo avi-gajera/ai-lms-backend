@@ -1,0 +1,133 @@
+{
+  "id": "7630ad85-0dfd-4b04-bb6d-537d7b2ec8ec",
+  "attempt_id": "772178d5-6731-4669-8f0a-f003ed42d861",
+  "created_at": "2026-09-23T11:25:03.830010",
+  "overall": {
+    "score": 3.0,
+    "max_score": 8.0,
+    "percentage": 37.5,
+    "correct": 3,
+    "total_questions": 8,
+    "attempted": 7,
+    "band": "needs improvement"
+  },
+  "by_type": {
+    "mcq": {
+      "questions": 3,
+      "correct": 1,
+      "avg_score": 0.33,
+      "accuracy": 0.33
+    },
+    "true_false": {
+      "questions": 2,
+      "correct": 1,
+      "avg_score": 0.5,
+      "accuracy": 0.5
+    },
+    "short_answer": {
+      "questions": 3,
+      "correct": 1,
+      "avg_score": 0.33,
+      "accuracy": 0.33
+    }
+  },
+  "topic_breakdown": [
+    {
+      "topic": "Overview of Photosynthesis",
+      "questions": 2,
+      "correct": 2,
+      "avg_score": 1.0,
+      "accuracy": 1.0,
+      "status": "strength",
+      "video_segments": [
+        "00:00-01:30",
+        "02:34-03:47"
+      ]
+    },
+    {
+      "topic": "Light Reactions",
+      "questions": 3,
+      "correct": 0,
+      "avg_score": 0.0,
+      "accuracy": 0.0,
+      "status": "weakness",
+      "video_segments": [
+        "04:42-05:58",
+        "07:01-08:25",
+        "09:27-10:57"
+      ]
+    },
+    {
+      "topic": "Energy Carriers",
+      "questions": 1,
+      "correct": 0,
+      "avg_score": 0.0,
+      "accuracy": 0.0,
+      "status": "weakness",
+      "video_segments": [
+        "08:07-09:40"
+      ]
+    },
+    {
+      "topic": "Dark Reactions",
+      "questions": 2,
+      "correct": 1,
+      "avg_score": 0.5,
+      "accuracy": 0.5,
+      "status": "weakness",
+      "video_segments": [
+        "10:40-12:16",
+        "12:07-13:35"
+      ]
+    }
+  ],
+  "strengths": [
+    {
+      "topic": "Overview of Photosynthesis",
+      "avg_score": 1.0
+    }
+  ],
+  "weaknesses": [
+    {
+      "topic": "Light Reactions",
+      "avg_score": 0.0,
+      "rewatch": [
+        "04:42-05:58",
+        "07:01-08:25",
+        "09:27-10:57"
+      ]
+    },
+    {
+      "topic": "Energy Carriers",
+      "avg_score": 0.0,
+      "rewatch": [
+        "08:07-09:40"
+      ]
+    },
+    {
+      "topic": "Dark Reactions",
+      "avg_score": 0.5,
+      "rewatch": [
+        "10:40-12:16",
+        "12:07-13:35"
+      ]
+    }
+  ],
+  "improvement_areas": [
+    "Light Reactions: revisit this concept (see 07:01-10:57 in the video)",
+    "Energy Carriers: revisit this concept (see 08:07-09:40 in the video)",
+    "Light Reactions: revisit this concept (see 04:42-08:25 in the video)",
+    "Photon requirement for light reactions",
+    "Photon independence of dark reactions",
+    "Naming rationale based on photon need",
+    "Dark Reactions: question left unanswered (see 10:40-13:35 in the video)"
+  ],
+  "suggestions": [
+    "Rewatch the Light Reactions segments 04:42-05:58, 07:01-08:25, and 09:27-10:57, then write brief notes and answer a few practice MCQs on each sub‑topic.",
+    "Review the Energy Carriers segment 08:07-09:40, focusing on the roles of ATP and NADPH; create a side‑by‑side comparison chart to solidify the differences.",
+    "Revisit the Dark Reactions segments 10:40-12:16 and 12:07-13:35; summarize the Calvin cycle steps in your own words and draw a simple flow diagram.",
+    "After reviewing the above sections, complete a mixed set of short‑answer and true/false questions on Light Reactions, Energy Carriers, and Dark Reactions to test retention."
+  ],
+  "ai_summary": "You scored 3 out of 8 points (37.5%) on the Photosynthesis assessment, placing you in the \"needs improvement\" band. Your grasp of the Overview of Photosynthesis is solid – you answered both questions correctly. However, the Light Reactions were challenging, with no correct answers across three questions, and the Energy Carriers topic also showed a score of zero. Your performance on Dark Reactions was mixed, achieving half the points. To boost your overall understanding, focus on the segments where you struggled, and reinforce the concepts with active note‑taking and practice questions. Consistent review of these areas will help raise your accuracy and confidence.",
+  "summary_source": "llm"
+}

@@ -29,10 +29,11 @@ Backend-only Learning Management System: video → transcript → RAG index → 
 
 ```bash
 docker compose up --build                 # api, worker, redis, qdrant
-docker compose run --rm api pytest        # tests (offline: fake LLM / embeddings / in-memory Qdrant)
+docker compose run --rm --no-deps tools pytest   # tests on the dev image (offline: fake LLM / embeddings / in-memory Qdrant)
 docker compose run --rm api alembic upgrade head
 docker compose run --rm api alembic revision --autogenerate -m "msg"
-python scripts/demo.py                    # end-to-end demo → docs/sample-outputs/
+sh scripts/lock_requirements.sh           # after editing requirements*.txt: regenerate the .lock pins
+docker compose run --rm tools python scripts/demo.py   # end-to-end demo → docs/sample-outputs/ (or `python scripts/demo.py` locally)
 ```
 
 ## AI-DLC Workflow

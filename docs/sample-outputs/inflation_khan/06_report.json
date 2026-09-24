@@ -1,0 +1,81 @@
+{
+  "id": "89e617a9-e4d9-4e7f-b193-09ab89027506",
+  "attempt_id": "5971c72f-bdd1-40e4-afe7-b6d47678a374",
+  "created_at": "2026-09-23T11:19:58.151262",
+  "overall": {
+    "score": 6.2,
+    "max_score": 8.0,
+    "percentage": 77.5,
+    "correct": 6,
+    "total_questions": 8,
+    "attempted": 8,
+    "band": "good"
+  },
+  "by_type": {
+    "mcq": {
+      "questions": 3,
+      "correct": 2,
+      "avg_score": 0.67,
+      "accuracy": 0.67
+    },
+    "true_false": {
+      "questions": 2,
+      "correct": 2,
+      "avg_score": 1.0,
+      "accuracy": 1.0
+    },
+    "short_answer": {
+      "questions": 3,
+      "correct": 2,
+      "avg_score": 0.73,
+      "accuracy": 0.67
+    }
+  },
+  "topic_breakdown": [
+    {
+      "topic": "Inflation Overview",
+      "questions": 5,
+      "correct": 3,
+      "avg_score": 0.64,
+      "accuracy": 0.6,
+      "status": "developing",
+      "video_segments": [
+        "00:00-01:26",
+        "01:15-02:31",
+        "02:16-03:47"
+      ]
+    },
+    {
+      "topic": "CPI Calculation",
+      "questions": 3,
+      "correct": 3,
+      "avg_score": 1.0,
+      "accuracy": 1.0,
+      "status": "strength",
+      "video_segments": [
+        "03:47-05:00",
+        "06:29-07:31"
+      ]
+    }
+  ],
+  "strengths": [
+    {
+      "topic": "CPI Calculation",
+      "avg_score": 1.0
+    }
+  ],
+  "weaknesses": [],
+  "improvement_areas": [
+    "Inflation Overview: revisit this concept (see 01:15-02:31 in the video)",
+    "Explain that ‘U’ stands for Urban Consumers",
+    "State that most U.S. consumers are urban, making CPI‑U the representative headline index"
+  ],
+  "suggestions": [
+    "Rewatch the video segment 01:15‑02:31 to reinforce the key ideas of the Inflation Overview.",
+    "Create flashcards for key terms like \"U\" (Urban Consumers) and why CPI‑U is the headline index, then test yourself daily.",
+    "Practice additional multiple‑choice and short‑answer questions on the Inflation Overview to improve accuracy.",
+    "Summarize the Inflation Overview in your own words and compare it to the CPI Calculation to highlight differences and reinforce learning."
+  ],
+  "ai_summary": "You scored 6.2 out of 8 (77.5%), placing you in the \"good\" band. Your answers show solid mastery of the CPI Calculation topic, where you answered every question correctly. However, the Inflation Overview section is still developing—you got 3 out of 5 correct, with an accuracy of 60%. The MCQ and short‑answer items in this area were the main sources of missed points. Revisiting the segment that covers the core concepts (01:15‑02:31) will help solidify your understanding. Overall, you’re on the right track, but a focused review of the overview material will boost your confidence and raise your score further.",
+  "summary_source": "llm"
+}

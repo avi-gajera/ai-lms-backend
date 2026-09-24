@@ -35,6 +35,10 @@ class Settings(BaseSettings):
     task_backend: Literal["local", "celery"] = "local"
     redis_url: str = "redis://localhost:6379/0"
     task_max_retries: int = 3
+    # Redis broker: an un-acked message (worker died mid-job) is re-delivered after this many
+    # seconds. Must exceed the longest job, or a slow job is delivered twice (harmless — jobs are
+    # idempotent — but wasteful). Kombu's default is 1 hour.
+    celery_visibility_timeout: int = 1800
 
     # --- Vector DB ---
     # If qdrant_url is set, use a Qdrant server; otherwise use embedded file mode at qdrant_path

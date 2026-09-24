@@ -12,6 +12,7 @@ from app.core.exceptions import Conflict, NotFound, ValidationFailed
 from app.core.logging import get_logger
 from app.db.models import LearnerProgress, TranscriptChunk, Video, VideoStatus
 from app.schemas.api import (
+    ERROR_RESPONSES,
     ChunkOut,
     ProgressIn,
     ProgressOut,
@@ -25,7 +26,7 @@ from app.services import retrieval
 from app.services.grading import fmt_ts
 from app.workers.dispatch import enqueue_process_video
 
-router = APIRouter(prefix="/videos", tags=["videos"])
+router = APIRouter(prefix="/videos", tags=["videos"], responses=ERROR_RESPONSES)
 logger = get_logger(__name__)
 
 
@@ -90,7 +91,8 @@ def _save_upload(upload: UploadFile, settings: Settings) -> Path:
     description=(
         "Provide **either** a multipart `file` upload **or** `sample_path` (a file name inside "
         "`sample_data/videos/`). Processing (transcription → chunking → topic labelling → "
-        "embedding) runs in the background; poll `status_url` or `task_url`."
+        "embedding) runs in the background; poll `status_url` or `task_url`. Bodies over "
+        "`MAX_UPLOAD_MB` are rejected with **413** as they stream in."
     ),
 )
 def create_video(

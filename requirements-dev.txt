@@ -1,0 +1,8 @@
+# Test / demo / tooling dependencies - NOT installed in the runtime image (Dockerfile `dev` target).
+-r requirements.txt
+
+pytest>=8.3
+httpx>=0.27                # FastAPI TestClient
+requests>=2.32             # scripts/demo.py
+yt-dlp>=2024.8.6           # scripts/fetch_sample_videos.py
+imageio-ffmpeg>=0.5        # bundled ffmpeg binary used by scripts/fetch_sample_videos.py

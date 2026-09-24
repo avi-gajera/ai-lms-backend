@@ -1,0 +1,35 @@
+{
+  "learner_profile": "average",
+  "assessment_id": "f5027a56-0237-4dfd-a0bb-565034a70a49",
+  "learner_id": "demo-learner-001",
+  "answers": [
+    {
+      "question_id": "6c731823-dd97-41fd-8835-cdc306049cf3",
+      "response": "It creates carbohydrates that animals consume as fuel"
+    },
+    {
+      "question_id": "08b5deea-4328-4a2f-9c78-ffdd1260fd11",
+      "response": "Only ATP is produced and used in the Calvin cycle"
+    },
+    {
+      "question_id": "5a026ae4-23c6-430f-a6c9-55c3a360cde8",
+      "response": "It acts as an oxidizing agent, accepting electrons from the other molecule"
+    },
+    {
+      "question_id": "768119cc-f5df-4f6d-9e9c-bf70128e9779",
+      "response": "false"
+    },
+    {
+      "question_id": "47c5373f-2bfd-4c65-a05e-92cd4724a900",
+      "response": "false"
+    },
+    {
+      "question_id": "d0262fd4-849b-4360-b1d6-f5cee819bbbe",
+      "response": "I'm not sure, maybe it is just a definition from the video."
+    },
+    {
+      "question_id": "fb0f8f51-97f2-4d48-8d81-565410ce1148",
+      "response": "Photons are captured by chlorophyll, which excites its electrons to higher energy states; the excited electrons flow through the electron transport chain, generating a proton gradient that drives ATP synthesis and supplying electrons to reduce NADP⁺ to NADPH."
+    }
+  ]
+}

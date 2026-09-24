@@ -1,0 +1,95 @@
+{
+  "id": "fca96861-d790-4159-8017-abd3ba47389c",
+  "video_id": "60f6641f-d413-44eb-bfe7-2bddab9597d2",
+  "learner_id": "demo-learner-001",
+  "created_at": "2026-09-23T11:19:13.316567",
+  "questions": [
+    {
+      "id": "aef0769f-ef89-47b1-a961-13a3c51e54c2",
+      "position": 0,
+      "type": "mcq",
+      "prompt": "Why do economists today focus on price inflation rather than monetary inflation when discussing inflation?",
+      "options": [
+        "Because price inflation is what people actually measure and discuss today.",
+        "Because monetary inflation no longer exists.",
+        "Because price inflation and monetary inflation are identical.",
+        "Because the money supply never changes."
+      ],
+      "topic": "Inflation Overview",
+      "difficulty": "medium"
+    },
+    {
+      "id": "e6480e97-802f-46d2-a8af-4ad77d715bb3",
+      "position": 1,
+      "type": "mcq",
+      "prompt": "How does a supply shock in oil affect the price of unrelated goods such as bananas?",
+      "options": [
+        "It only raises oil prices, not other goods.",
+        "It raises transportation costs, which increase prices of many goods including bananas.",
+        "It decreases banana prices because consumers switch away from oil.",
+        "It has no effect because bananas are not made of oil."
+      ],
+      "topic": "Inflation Overview",
+      "difficulty": "medium"
+    },
+    {
+      "id": "15b669db-300a-4c39-8518-904988ebc7a9",
+      "position": 2,
+      "type": "mcq",
+      "prompt": "In the simplified CPI example, if apple prices rise by 50% and banana prices rise by 80%, how is the overall CPI change calculated?",
+      "options": [
+        "By averaging the two percentage changes equally (65%).",
+        "By weighting each percentage change by its expenditure share (62%).",
+        "By adding the two percentages together (130%).",
+        "By taking the higher of the two percentages (80%)."
+      ],
+      "topic": "CPI Calculation",
+      "difficulty": "easy"
+    },
+    {
+      "id": "d682b317-626b-4521-b1da-56f39ae98f6a",
+      "position": 3,
+      "type": "true_false",
+      "prompt": "A modest inflation rate of around 2% per year is generally considered beneficial because it allows prices to adjust gradually without causing economic instability.",
+      "options": null,
+      "topic": "Inflation Overview",
+      "difficulty": "easy"
+    },
+    {
+      "id": "5a8c44f5-dade-4160-9815-72e99a10af03",
+      "position": 4,
+      "type": "true_false",
+      "prompt": "The CPI-U index is calculated by giving equal weight to all goods in the consumer basket, regardless of how much of their income consumers spend on each good.",
+      "options": null,
+      "topic": "CPI Calculation",
+      "difficulty": "easy"
+    },
+    {
+      "id": "937d2021-9d0a-4d59-aa8c-39cbec85efc9",
+      "position": 5,
+      "type": "short_answer",
+      "prompt": "Why does an increase in the money supply that outpaces real productivity tend to cause price inflation?",
+      "options": null,
+      "topic": "Inflation Overview",
+      "difficulty": "medium"
+    },
+    {
+      "id": "30fa01c6-7f2e-4241-b411-ddf205261ae4",
+      "position": 6,
+      "type": "short_answer",
+      "prompt": "Why is the CPI‑U considered the headline consumer price index reported in the news?",
+      "options": null,
+      "topic": "Inflation Overview",
+      "difficulty": "easy"
+    },
+    {
+      "id": "c51c6c49-e49e-4813-8005-8cdbd7e2d141",
+      "position": 7,
+      "type": "short_answer",
+      "prompt": "How does using the expenditure shares of apples (60%) and bananas (40%) to compute a weighted average of their price changes give the overall CPI change?",
+      "options": null,
+      "topic": "CPI Calculation",
+      "difficulty": "medium"
+    }
+  ]
+}

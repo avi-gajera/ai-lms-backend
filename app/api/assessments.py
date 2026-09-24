@@ -6,10 +6,10 @@ from sqlalchemy.orm import Session
 from app.api.deps import LLMProvider, Settings, get_db, get_llm_dep, get_settings_dep
 from app.core.exceptions import NotFound
 from app.db.models import Assessment
-from app.schemas.api import AssessmentCreate, AssessmentOut
+from app.schemas.api import ERROR_RESPONSES, AssessmentCreate, AssessmentOut
 from app.services.question_gen import generate_assessment
 
-router = APIRouter(prefix="/assessments", tags=["assessments"])
+router = APIRouter(prefix="/assessments", tags=["assessments"], responses=ERROR_RESPONSES)
 
 
 @router.post(
@@ -20,7 +20,9 @@ router = APIRouter(prefix="/assessments", tags=["assessments"])
     description=(
         "Returns **409** unless the video is indexed and the learner's progress is at or above "
         "`COMPLETION_THRESHOLD`. Generates a mix of MCQ, true/false and short-answer questions "
-        "grounded in the video's transcript. Correct answers are not included in the response."
+        "grounded in the video's transcript. Correct answers are not included in the response.\n\n"
+        "**Synchronous LLM call:** typically 20-40 s (longer while Groq rate-limits and we back "
+        "off). Clients and any reverse proxy in front of the API need a read timeout of >= 120 s."
     ),
 )
 def create_assessment(

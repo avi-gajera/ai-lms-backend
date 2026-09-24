@@ -1,0 +1,17 @@
+{
+  "id": "a433f53d-4468-435d-96cf-4ebaea2ad07d",
+  "title": "1.10.7 Recursive Functions",
+  "status": "indexed",
+  "error": null,
+  "duration_s": 843.2094375,
+  "language": "en",
+  "chunk_count": 11,
+  "topics": [
+    "Recursive Function Definition",
+    "Depth of Bracket Strings",
+    "Structural Induction Proof",
+    "Ambiguity in Recursive Definitions"
+  ],
+  "created_at": "2026-09-23T11:25:07.956514",
+  "updated_at": "2026-09-23T11:28:08.134993"
+}

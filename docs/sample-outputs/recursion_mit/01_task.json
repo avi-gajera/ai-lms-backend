@@ -1,0 +1,11 @@
+{
+  "task_id": "be37b27d-7c9c-4a4e-86f1-53d9b5a658fb",
+  "state": "SUCCESS",
+  "backend": "local",
+  "result": {
+    "video_id": "a433f53d-4468-435d-96cf-4ebaea2ad07d",
+    "status": "indexed",
+    "chunks": 11
+  },
+  "error": null
+}

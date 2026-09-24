@@ -1,0 +1,36 @@
+{
+  "video_id": "a433f53d-4468-435d-96cf-4ebaea2ad07d",
+  "query": "What happens if a recursive function has no base case?",
+  "results": [
+    {
+      "chunk_id": "c06385f2-1280-42ae-bbe8-26c727603f0a",
+      "chunk_index": 10,
+      "score": 0.7583,
+      "start_time": 770.57,
+      "end_time": 841.58,
+      "timestamp": "12:50-14:01",
+      "topic": "Ambiguity in Recursive Definitions",
+      "text": "So for example, log to the base two does work, but that would require proof. It doesn't follow on general principles when you define a recursive function on a an ambiguous data type. On the other hand, the reason why we chose that somewhat unexpected single constructor for the balanced strings and the balanced bracket strings was that it turns out to be unambiguous. And so that definition of depth is a good definition, as is any definition based on the recursive definition of the set M. So the general problem we have to watch out for instructor created the data me if there's more than one way to construct E, then you're going to you're not quite sure which case up to use to define the function F. And that's why this issue of whether or not the data structures and pig US is critical to getting good definitions of recursive functions."
+    },
+    {
+      "chunk_id": "d33bbfe9-52fa-4395-8b9e-1ecb1bc0d255",
+      "chunk_index": 2,
+      "score": 0.7552,
+      "start_time": 175.32,
+      "end_time": 265.12,
+      "timestamp": "02:55-04:25",
+      "topic": "Recursive Function Definition",
+      "text": "And if n is a non negative integer, then n plus one is a non negative integer. So to summarize the recipe for a recursive function definition is you define f going from the recursive data type to values whatever kind of values you want to assign to these recursive data. F of b is defined directly for the base case b of base cases b and f of the constructor of x is defined using f of x and x. Now once you've gotten a function defined recursively, you can start proving things about it by structural induction or by induction on its own definition, its own recursive definition. So let's look at an example of that. I want to prove the following property of the depth of strings in m, namely that if I look at the length of a string r plus two. So the brackets around r means the number of, sorry the vertical bars around r mean the number of brackets in the string r plus two is less than or equal to two to the power depth plus one twice the two to the depth of the. String and I want to prove that this holds for all strings r of matched brackets and I'm going to prove it by structural induction. And just as a walk through here is how the proof is going to go."
+    },
+    {
+      "chunk_id": "0e29593a-006b-4262-8100-3854e4cdba22",
+      "chunk_index": 0,
+      "score": 0.7504,
+      "start_time": 1.52,
+      "end_time": 98.42,
+      "timestamp": "00:01-01:38",
+      "topic": "Recursive Function Definition",
+      "text": "Now, the standard thing you do with a recursive data type in programming is you define recursive procedures on them. So, let's look at how that works. I'm going to define a function f on a recursively defined data type r. Now, what I'm going to do is I'm going to define f of b explicitly in terms of b and operations that are already understood for all of the base cases of b in r. And then, I'm going to define f of a constructor applied to x in terms of x and f of x. And if I keep to that structure, that gives me a recursive definition of the function f on the recursively defined data set r. Let's look at an example to make this recipe explicit and clearer. Let's think about a recursive function on the set of matched brackets. This is a somewhat interesting one. Let's define the depth of a string as follows and the idea is how deeply nested are the successive pairs of left and right brackets. Well, the depth of the empty string is zero. You've got to start somewhere. It's got no brackets. We'll call it depth zero. Now, what about the depth of the constructor putting brackets around s and then following it by t? Well, putting brackets around s gives you a string that's one deeper than s's."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "id": "772178d5-6731-4669-8f0a-f003ed42d861",
+  "assessment_id": "f5027a56-0237-4dfd-a0bb-565034a70a49",
+  "learner_id": "demo-learner-001",
+  "submitted_at": "2026-09-23T11:25:01.966269",
+  "total_score": 3.0,
+  "max_score": 8.0,
+  "percentage": 37.5,
+  "answers": [
+    {
+      "question_id": "6c731823-dd97-41fd-8835-cdc306049cf3",
+      "position": 0,
+      "type": "mcq",
+      "topic": "Overview of Photosynthesis",
+      "prompt": "Why is photosynthesis considered essential for animals and humans?",
+      "response": "It creates carbohydrates that animals consume as fuel",
+      "score": 1.0,
+      "is_correct": true,
+      "feedback": "Correct. The overview chunk explains that photosynthesis turns CO₂, water and sunlight into sugars or carbohydrates, which serve as the fuel for animals and humans (\"...this is what is used as the fuel or the energy for all of the other important compounds that we eat.\")",
+      "improvement_areas": [],
+      "evaluator": "rule",
+      "correct_answer": "It creates carbohydrates that animals consume as fuel",
+      "reference_answer": "It creates carbohydrates that animals consume as fuel"
+    },
+    {
+      "question_id": "08b5deea-4328-4a2f-9c78-ffdd1260fd11",
+      "position": 1,
+      "type": "mcq",
+      "topic": "Light Reactions",
+      "prompt": "Which statement correctly describes the molecules produced by the light‑dependent reactions that are later used in the Calvin cycle?",
+      "response": "Only ATP is produced and used in the Calvin cycle",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Incorrect. You chose \"Only ATP is produced and used in the Calvin cycle\". The correct answer is \"Both ATP and NADPH are produced and used in the Calvin cycle\". The light‑reaction chunk states that the light reactions produce ATP and NADPH, which are then used by the dark reactions/Calvin cycle (\"it produces ATP ... and it produces NADPH ... that can then be used in the dark reactions\"). (see 07:01-10:57 in the video)",
+      "improvement_areas": [
+        "Light Reactions: revisit this concept (see 07:01-10:57 in the video)"
+      ],
+      "evaluator": "rule",
+      "correct_answer": "Both ATP and NADPH are produced and used in the Calvin cycle",
+      "reference_answer": "Both ATP and NADPH are produced and used in the Calvin cycle"
+    },
+    {
+      "question_id": "5a026ae4-23c6-430f-a6c9-55c3a360cde8",
+      "position": 2,
+      "type": "mcq",
+      "topic": "Energy Carriers",
+      "prompt": "In photosynthesis, what role does NADPH play when it transfers its hydrogen and electron to another molecule?",
+      "response": "It acts as an oxidizing agent, accepting electrons from the other molecule",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Incorrect. You chose \"It acts as an oxidizing agent, accepting electrons from the other molecule\". The correct answer is \"It acts as a reducing agent, donating electrons to the other molecule\". The energy carriers chunk describes NADPH as a reducing agent that gives away a hydrogen and its electron, causing the other molecule to be reduced (\"...it's a reducing agent, it gives away this hydrogen and the electron associated with it\"). (see 08:07-09:40 in the video)",
+      "improvement_areas": [
+        "Energy Carriers: revisit this concept (see 08:07-09:40 in the video)"
+      ],
+      "evaluator": "rule",
+      "correct_answer": "It acts as a reducing agent, donating electrons to the other molecule",
+      "reference_answer": "It acts as a reducing agent, donating electrons to the other molecule"
+    },
+    {
+      "question_id": "768119cc-f5df-4f6d-9e9c-bf70128e9779",
+      "position": 3,
+      "type": "true_false",
+      "topic": "Light Reactions",
+      "prompt": "The light reactions require photons and water, and they release molecular oxygen as a byproduct.",
+      "response": "false",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Incorrect. You answered false. The statement is true. The transcript states that the light reactions need photons and water, and that water is split during these reactions, producing molecular oxygen (see chunks c124302f-96ef-4eb5-80bc-cc203a1084ee and f9a1fb11-6ec9-4913-a187-0dc9ad756434). (see 04:42-08:25 in the video)",
+      "improvement_areas": [
+        "Light Reactions: revisit this concept (see 04:42-08:25 in the video)"
+      ],
+      "evaluator": "rule",
+      "correct_answer": "true",
+      "reference_answer": "true"
+    },
+    {
+      "question_id": "47c5373f-2bfd-4c65-a05e-92cd4724a900",
+      "position": 4,
+      "type": "true_false",
+      "topic": "Dark Reactions",
+      "prompt": "The light reactions directly fix carbon dioxide to produce glucose.",
+      "response": "false",
+      "score": 1.0,
+      "is_correct": true,
+      "feedback": "Correct — the statement is false. According to the dark‑reaction sections, carbon fixation and glucose synthesis occur in the Calvin cycle (the light‑independent or dark reactions), which use ATP and NADPH generated by the light reactions; the light reactions themselves do not fix CO₂ (see chunks b987e1bf-8ca1-43a7-bd81-823b6226c18e and c1019341-c138-4af6-ae27-8e49a279e0b0).",
+      "improvement_areas": [],
+      "evaluator": "rule",
+      "correct_answer": "false",
+      "reference_answer": "false"
+    },
+    {
+      "question_id": "d0262fd4-849b-4360-b1d6-f5cee819bbbe",
+      "position": 5,
+      "type": "short_answer",
+      "topic": "Light Reactions",
+      "prompt": "Why are the light reactions called \"light‑dependent\" while the dark reactions are called \"light‑independent\" even though both can occur when the sun is shining?",
+      "response": "I'm not sure, maybe it is just a definition from the video.",
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Your answer does not explain why the reactions are named as they are. You need to state that light reactions require photons, dark reactions do not, and that the naming is based on this photon requirement.",
+      "improvement_areas": [
+        "Photon requirement for light reactions",
+        "Photon independence of dark reactions",
+        "Naming rationale based on photon need"
+      ],
+      "evaluator": "llm",
+      "correct_answer": null,
+      "reference_answer": "The light reactions require photons to drive water splitting and produce ATP and NADPH, so they are termed light‑dependent. The dark (light‑independent) reactions use the ATP and NADPH but do not need photons, even though they usually occur while sunlight is present."
+    },
+    {
+      "question_id": "fb0f8f51-97f2-4d48-8d81-565410ce1148",
+      "position": 6,
+      "type": "short_answer",
+      "topic": "Overview of Photosynthesis",
+      "prompt": "How do photons initiate the light reactions by exciting electrons in chlorophyll, and why is this excitation essential for making ATP and NADPH?",
+      "response": "Photons are captured by chlorophyll, which excites its electrons to higher energy states; the excited electrons flow through the electron transport chain, generating a proton gradient that drives ATP synthesis and supplying electrons to reduce NADP⁺ to NADPH.",
+      "score": 1.0,
+      "is_correct": true,
+      "feedback": "Great job! You correctly described how photons are absorbed by chlorophyll, excite electrons, and how this drives ATP and NADPH production.",
+      "improvement_areas": [],
+      "evaluator": "llm",
+      "correct_answer": null,
+      "reference_answer": "Photons are captured by chlorophyll, which excites its electrons to higher energy states; the excited electrons flow through the electron transport chain, generating a proton gradient that drives ATP synthesis and supplying electrons to reduce NADP⁺ to NADPH."
+    },
+    {
+      "question_id": "5e0f0695-950e-4177-b547-ccabc0102125",
+      "position": 7,
+      "type": "short_answer",
+      "topic": "Dark Reactions",
+      "prompt": "Why does the Calvin cycle produce glyceraldehyde‑3‑phosphate (G3P) instead of glucose directly, and how can two G3P molecules be used to form a glucose molecule later?",
+      "response": null,
+      "score": 0.0,
+      "is_correct": false,
+      "feedback": "Not attempted. Reference answer: The Calvin cycle synthesizes the three‑carbon molecule G3P because its pathway adds carbon atoms stepwise; two G3P molecules can later be combined through additional reactions to produce a six‑carbon glucose molecule.",
+      "improvement_areas": [
+        "Dark Reactions: question left unanswered (see 10:40-13:35 in the video)"
+      ],
+      "evaluator": "none",
+      "correct_answer": null,
+      "reference_answer": "The Calvin cycle synthesizes the three‑carbon molecule G3P because its pathway adds carbon atoms stepwise; two G3P molecules can later be combined through additional reactions to produce a six‑carbon glucose molecule."
+    }
+  ],
+  "report_url": "/attempts/772178d5-6731-4669-8f0a-f003ed42d861/report"
+}

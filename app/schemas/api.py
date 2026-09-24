@@ -173,6 +173,28 @@ class ReportOut(_Out):
     summary_source: Literal["llm", "template"]
 
 
+# --- errors ------------------------------------------------------------------------------------
+
+
+class ErrorBody(BaseModel):
+    code: str = Field(examples=["validation_failed"])
+    message: str
+    request_id: str | None
+    details: Any = None
+
+
+class ErrorOut(BaseModel):
+    """The envelope every error response uses (4xx and 5xx)."""
+
+    error: ErrorBody
+
+
+# Replaces FastAPI's default 422 schema in the OpenAPI docs with our envelope.
+ERROR_RESPONSES: dict[int | str, dict[str, Any]] = {
+    422: {"model": ErrorOut, "description": "Validation error"},
+}
+
+
 # --- tasks / health ----------------------------------------------------------------------------
 
 

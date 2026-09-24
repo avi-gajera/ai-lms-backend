@@ -6,11 +6,11 @@ from sqlalchemy.orm import Session
 from app.api.deps import LLMProvider, Settings, get_db, get_llm_dep, get_settings_dep
 from app.core.exceptions import NotFound, ValidationFailed
 from app.db.models import Assessment, Attempt, Report
-from app.schemas.api import AnswerResult, AttemptCreate, AttemptOut, ReportOut
+from app.schemas.api import ERROR_RESPONSES, AnswerResult, AttemptCreate, AttemptOut, ReportOut
 from app.services.evaluation import evaluate_attempt
 from app.services.report import build_report
 
-router = APIRouter(prefix="/attempts", tags=["attempts"])
+router = APIRouter(prefix="/attempts", tags=["attempts"], responses=ERROR_RESPONSES)
 
 
 def _attempt_out(attempt: Attempt) -> AttemptOut:
@@ -45,7 +45,9 @@ def _attempt_out(attempt: Attempt) -> AttemptOut:
     description=(
         "MCQ and true/false are graded deterministically; short answers are graded by an "
         "LLM judge grounded in the reference answer, rubric and source transcript. Questions "
-        "without a response score 0. The learning report is generated in the same transaction."
+        "without a response score 0. The learning report is generated in the same transaction.\n\n"
+        "**Synchronous LLM calls:** typically 5-20 s (longer while Groq rate-limits and we back "
+        "off). Clients and any reverse proxy in front of the API need a read timeout of >= 120 s."
     ),
 )
 def submit_attempt(

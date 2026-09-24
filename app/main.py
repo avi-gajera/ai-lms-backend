@@ -1,5 +1,6 @@
 """FastAPI application entry point: `uvicorn app.main:app`."""
 
+import re
 import time
 import uuid
 from contextlib import asynccontextmanager
@@ -12,10 +13,15 @@ from app.api import assessments, attempts, tasks, videos
 from app.config import PROJECT_ROOT, get_settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging import get_logger, request_id_var, setup_worker_logging
+from app.core.middleware import BodySizeLimitMiddleware
 from app.db.session import engine
 from app.schemas.api import HealthOut
 
 logger = get_logger(__name__)
+
+# A client-supplied X-Request-ID is echoed in headers and written to every log line, so only a short
+# id-like value is trusted; anything else (huge, spaces, control characters) gets a fresh uuid.
+_REQUEST_ID = re.compile(r"[A-Za-z0-9._:-]{1,128}")
 
 
 def run_migrations() -> None:
@@ -59,10 +65,17 @@ app = FastAPI(
 )
 register_exception_handlers(app)
 
+# Added before `request_context` so it runs inside it: a 413 still carries a request id and is logged.
+# Headroom of 1 MB over MAX_UPLOAD_MB for the multipart framing and form fields around the file.
+app.add_middleware(
+    BodySizeLimitMiddleware, max_bytes=lambda: (get_settings().max_upload_mb + 1) * 1024 * 1024
+)
+
 
 @app.middleware("http")
 async def request_context(request: Request, call_next):
-    rid = request.headers.get("X-Request-ID") or str(uuid.uuid4())
+    incoming = request.headers.get("X-Request-ID", "")
+    rid = incoming if _REQUEST_ID.fullmatch(incoming) else str(uuid.uuid4())
     token = request_id_var.set(rid)
     start = time.perf_counter()
     try:

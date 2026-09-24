@@ -1,0 +1,36 @@
+{
+  "video_id": "69185a76-4ef9-4758-acb6-de176e8a3ef0",
+  "query": "Where does the oxygen released during photosynthesis come from?",
+  "results": [
+    {
+      "chunk_id": "f9a1fb11-6ec9-4913-a187-0dc9ad756434",
+      "chunk_index": 4,
+      "score": 0.767,
+      "start_time": 282.35,
+      "end_time": 358.95,
+      "timestamp": "04:42-05:58",
+      "topic": "Light Reactions",
+      "text": "you end up with some oxygen, and you end up with some oxygen. So this right here isn't so different than what I wrote up here in my first overview of how we always imagined photosynthesis in our heads. In order to make this equation balanced, let's see, I have N carbons here, so I need N carbons there. Let's see, I have two N hydrogens here, right? Two hydrogens, and I have N there, so I need two N hydrogens here, so I'll put an N out there, and let's see how many carbons I have, how many oxygens? I have two N oxygens, plus another N's of three N oxygens, and let's see, I have one N, and let's see, put an N here, and then I have two N, and I think this equation balances out. So this is a 30,000-foot view of what's going on in photosynthesis. And when you dig a little deeper, you'll see that this doesn't happen directly, that this happens to a bunch of steps that eventually gets us to the carbohydrate. So in general, we can break down photosynthesis, I'll rewrite the word. We can break down photosynthesis, photosynthesis, and we'll delve deeper into future videos, but I want to get the overview first. Let's get to two stages, two stages, we can call one, the light reactions, light reactions,"
+    },
+    {
+      "chunk_id": "c1019341-c138-4af6-ae27-8e49a279e0b0",
+      "chunk_index": 10,
+      "score": 0.7487,
+      "start_time": 727.43,
+      "end_time": 815.91,
+      "timestamp": "12:07-13:35",
+      "topic": "Dark Reactions",
+      "text": "photons, now all of these occur when the sun is out, but only the light reactions actually need the photons, the light reactions take photons, we're going to go into more detail on what actually occurs, and it takes in water, oxygen gets spit out, ATP and NADPH gets spit out, which are then used by the dark reaction, or the Calvin cycle, or the light independent reaction, because these still occur in the light, they just don't need photons, so they're the light independent reaction, and it uses that in conjunction, we'll talk about other molecules that are used in conjunction, oh, and I forgot a very important constituent of the dark reaction, it needs carbon dioxide, that's where you get your carbons to keep producing these phosphoglyceraldehydes, or glyceraldehyde-3 phosphate, so that's super important. It takes in the carbon dioxide, the products from the light reactions, and then uses that in the Calvin cycle to produce this very simple building block of other carbohydrates, and if you remember from glycolysis, you might remember that this p-gal molecule, or this g-3p, same thing, this was actually the first product when we split glucose in two when we performed the glycolysis, so now we're going the other way, we're building glucose so that we can split it later for energy, so this is an overview of photosynthesis, and the next couple of videos, I'm actually going to delve a little bit deeper and tell you about the light reactions and the dark reactions and how they actually occur."
+    },
+    {
+      "chunk_id": "bcd3c441-4cc9-40d9-a702-a5628c21ca99",
+      "chunk_index": 5,
+      "score": 0.7411,
+      "start_time": 342.59,
+      "end_time": 434.11,
+      "timestamp": "05:42-07:14",
+      "topic": "Light Reactions",
+      "text": "We can break down photosynthesis, photosynthesis, and we'll delve deeper into future videos, but I want to get the overview first. Let's get to two stages, two stages, we can call one, the light reactions, light reactions, or sometimes they're called the light dependent reactions, and that actually would probably be a better way to write it, let me write it like that, light dependent means that they need light to occur. Light dependent reactions, and then you have something called the dark reactions, and that's actually a bad name, because it also occurs in the light, dark reactions, I wrote in the slightly darker color, and the reason why I said it's a bad name is because it still occurs in the light, occurs in light, but the reason why they probably called it the dark reaction is that you don't need light, or that part of photosynthesis isn't dependent on photons to occur. So a better term for it would have been light in dependent, light in dependent reaction. So just to be clear, the light reactions actually need sunlight, they actually need photons for them to proceed. The dark reactions do not need photons for them to happen, although they do occur when the sun is out. They don't need those photons, but they need the byproducts from the light reaction to"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "id": "d472da40-54de-44f5-9a9d-edbfedd38a33",
+  "video_id": "a433f53d-4468-435d-96cf-4ebaea2ad07d",
+  "learner_id": "demo-learner-001",
+  "created_at": "2026-09-23T11:29:07.902441",
+  "questions": [
+    {
+      "id": "3017e330-b415-41f0-9357-492fdd74b716",
+      "position": 0,
+      "type": "mcq",
+      "prompt": "According to the recursive definition of depth for bracket strings, why is the depth of a string formed as '[' s ']' t defined as the maximum of (1 + depth(s)) and depth(t)?",
+      "options": [
+        "Because the outer brackets increase depth by one, and the rest of the string contributes its own depth, so the overall depth is whichever is larger.",
+        "Because we always add the depths of s and t together and then add one for the outer brackets.",
+        "Because depth is defined as the sum of the number of opening brackets in s and t.",
+        "Because the depth of t is always greater than the depth of s, so we only need to consider t."
+      ],
+      "topic": "Depth of Bracket Strings",
+      "difficulty": "medium"
+    },
+    {
+      "id": "107a63fb-9764-4ee1-8a1e-36d71e44a88c",
+      "position": 1,
+      "type": "mcq",
+      "prompt": "When defining a recursive function on a recursively defined data type, what role does the 'constructor case' play in the definition?",
+      "options": [
+        "It specifies how to compute the function value for a complex value by referring to the function applied to its immediate sub‑components.",
+        "It provides the initial value of the function for the simplest possible element of the type.",
+        "It determines the type of values the function can return.",
+        "It ensures that the function terminates by limiting the size of inputs."
+      ],
+      "topic": "Recursive Function Definition",
+      "difficulty": "easy"
+    },
+    {
+      "id": "a23c9061-4ea1-4992-9567-2a411f031779",
+      "position": 2,
+      "type": "mcq",
+      "prompt": "Why does the presence of more than one way to construct an element (e.g., 16 as 8×2 or 2×8) make a recursive definition of a function ambiguous?",
+      "options": [
+        "Because the function could assign different values depending on which construction is chosen, violating the definition of a function.",
+        "Because it causes the recursion to never reach a base case, leading to infinite loops.",
+        "Because it changes the datatype from being recursively defined to being iterative.",
+        "Because it forces the function to be non‑deterministic, which is required for logarithms."
+      ],
+      "topic": "Ambiguity in Recursive Definitions",
+      "difficulty": "medium"
+    },
+    {
+      "id": "b47e2e2a-4c28-4d1a-bb8f-eb8d424f8ebc",
+      "position": 3,
+      "type": "true_false",
+      "prompt": "The depth of the empty bracket string is defined to be zero because it contains no brackets.",
+      "options": null,
+      "topic": "Depth of Bracket Strings",
+      "difficulty": "easy"
+    },
+    {
+      "id": "e939fbc8-872a-4ea2-9569-5c3ca19f33d5",
+      "position": 4,
+      "type": "true_false",
+      "prompt": "When defining a recursive function, the constructor case can assign a value without referring to the function applied to its subcomponents.",
+      "options": null,
+      "topic": "Recursive Function Definition",
+      "difficulty": "easy"
+    },
+    {
+      "id": "308bb2be-d00a-41a9-8b3d-898f69386bdc",
+      "position": 5,
+      "type": "short_answer",
+      "prompt": "Explain how the recursive definition of the nth power of a number k (zero power is 1, (n+1)th power is k × nth power) reflects structural induction on the natural numbers.",
+      "options": null,
+      "topic": "Depth of Bracket Strings",
+      "difficulty": "medium"
+    },
+    {
+      "id": "65d061e5-a607-4ed5-9480-8f6571bdd7be",
+      "position": 6,
+      "type": "short_answer",
+      "prompt": "Why does the inequality \\( |r| + 2 \\le 2^{\\text{depth}(r)+1} \\) hold as an equality for the empty string, and what does this reveal about the relationship between length and depth in the base case?",
+      "options": null,
+      "topic": "Structural Induction Proof",
+      "difficulty": "easy"
+    },
+    {
+      "id": "5544ad1b-70bc-49f1-a5ec-50d5beead6ad",
+      "position": 7,
+      "type": "short_answer",
+      "prompt": "In the inductive step of the depth‑length inequality proof, how does replacing depth(s) and depth(t) with \\(\\max\\{\\text{depth}(s),\\text{depth}(t)\\}\\) help to combine the two exponential terms into a single term involving the depth of r?",
+      "options": null,
+      "topic": "Structural Induction Proof",
+      "difficulty": "hard"
+    }
+  ]
+}

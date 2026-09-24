@@ -1,0 +1,39 @@
+{
+  "learner_profile": "strong",
+  "assessment_id": "fca96861-d790-4159-8017-abd3ba47389c",
+  "learner_id": "demo-learner-001",
+  "answers": [
+    {
+      "question_id": "aef0769f-ef89-47b1-a961-13a3c51e54c2",
+      "response": "Because price inflation is what people actually measure and discuss today."
+    },
+    {
+      "question_id": "e6480e97-802f-46d2-a8af-4ad77d715bb3",
+      "response": "It only raises oil prices, not other goods."
+    },
+    {
+      "question_id": "15b669db-300a-4c39-8518-904988ebc7a9",
+      "response": "By weighting each percentage change by its expenditure share (62%)."
+    },
+    {
+      "question_id": "d682b317-626b-4521-b1da-56f39ae98f6a",
+      "response": "true"
+    },
+    {
+      "question_id": "5a8c44f5-dade-4160-9815-72e99a10af03",
+      "response": "false"
+    },
+    {
+      "question_id": "937d2021-9d0a-4d59-aa8c-39cbec85efc9",
+      "response": "Because a faster‑growing money supply means more dollars are available per unit of output, so demand exceeds supply and pushes overall prices up."
+    },
+    {
+      "question_id": "30fa01c6-7f2e-4241-b411-ddf205261ae4",
+      "response": "Because the CPI‑U tracks the price changes faced by... I think."
+    },
+    {
+      "question_id": "c51c6c49-e49e-4813-8005-8cdbd7e2d141",
+      "response": "By multiplying the 50% rise in apple prices by the 60% weight and the 80% rise in banana prices by the 40% weight, then adding them (0.6 × 50 % + 0.4 × 80 % = 62 %), we obtain the overall CPI increase for the basket."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+.git
+.venv
+venv
+**/__pycache__
+**/*.pyc
+.pytest_cache
+.env
+data
+sample_data/videos
+docs/sample-outputs
+aidlc
+.claude
+.mcp.aidlc-shipped.json
+*.log

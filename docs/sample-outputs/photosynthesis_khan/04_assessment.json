@@ -1,0 +1,95 @@
+{
+  "id": "f5027a56-0237-4dfd-a0bb-565034a70a49",
+  "video_id": "69185a76-4ef9-4758-acb6-de176e8a3ef0",
+  "learner_id": "demo-learner-001",
+  "created_at": "2026-09-23T11:24:30.621636",
+  "questions": [
+    {
+      "id": "6c731823-dd97-41fd-8835-cdc306049cf3",
+      "position": 0,
+      "type": "mcq",
+      "prompt": "Why is photosynthesis considered essential for animals and humans?",
+      "options": [
+        "It directly produces ATP that animals can use for energy",
+        "It creates carbohydrates that animals consume as fuel",
+        "It releases oxygen, which is the only source of energy for animals",
+        "It converts sunlight into heat that animals need to stay warm"
+      ],
+      "topic": "Overview of Photosynthesis",
+      "difficulty": "easy"
+    },
+    {
+      "id": "08b5deea-4328-4a2f-9c78-ffdd1260fd11",
+      "position": 1,
+      "type": "mcq",
+      "prompt": "Which statement correctly describes the molecules produced by the light‑dependent reactions that are later used in the Calvin cycle?",
+      "options": [
+        "Only ATP is produced and used in the Calvin cycle",
+        "Only NADPH is produced and used in the Calvin cycle",
+        "Both ATP and NADPH are produced and used in the Calvin cycle",
+        "Only molecular oxygen is produced and used in the Calvin cycle"
+      ],
+      "topic": "Light Reactions",
+      "difficulty": "medium"
+    },
+    {
+      "id": "5a026ae4-23c6-430f-a6c9-55c3a360cde8",
+      "position": 2,
+      "type": "mcq",
+      "prompt": "In photosynthesis, what role does NADPH play when it transfers its hydrogen and electron to another molecule?",
+      "options": [
+        "It acts as an oxidizing agent, accepting electrons from the other molecule",
+        "It acts as a reducing agent, donating electrons to the other molecule",
+        "It stores carbon atoms for later carbohydrate synthesis",
+        "It transports protons across the thylakoid membrane"
+      ],
+      "topic": "Energy Carriers",
+      "difficulty": "medium"
+    },
+    {
+      "id": "768119cc-f5df-4f6d-9e9c-bf70128e9779",
+      "position": 3,
+      "type": "true_false",
+      "prompt": "The light reactions require photons and water, and they release molecular oxygen as a byproduct.",
+      "options": null,
+      "topic": "Light Reactions",
+      "difficulty": "easy"
+    },
+    {
+      "id": "47c5373f-2bfd-4c65-a05e-92cd4724a900",
+      "position": 4,
+      "type": "true_false",
+      "prompt": "The light reactions directly fix carbon dioxide to produce glucose.",
+      "options": null,
+      "topic": "Dark Reactions",
+      "difficulty": "medium"
+    },
+    {
+      "id": "d0262fd4-849b-4360-b1d6-f5cee819bbbe",
+      "position": 5,
+      "type": "short_answer",
+      "prompt": "Why are the light reactions called \"light‑dependent\" while the dark reactions are called \"light‑independent\" even though both can occur when the sun is shining?",
+      "options": null,
+      "topic": "Light Reactions",
+      "difficulty": "medium"
+    },
+    {
+      "id": "fb0f8f51-97f2-4d48-8d81-565410ce1148",
+      "position": 6,
+      "type": "short_answer",
+      "prompt": "How do photons initiate the light reactions by exciting electrons in chlorophyll, and why is this excitation essential for making ATP and NADPH?",
+      "options": null,
+      "topic": "Overview of Photosynthesis",
+      "difficulty": "medium"
+    },
+    {
+      "id": "5e0f0695-950e-4177-b547-ccabc0102125",
+      "position": 7,
+      "type": "short_answer",
+      "prompt": "Why does the Calvin cycle produce glyceraldehyde‑3‑phosphate (G3P) instead of glucose directly, and how can two G3P molecules be used to form a glucose molecule later?",
+      "options": null,
+      "topic": "Dark Reactions",
+      "difficulty": "medium"
+    }
+  ]
+}
