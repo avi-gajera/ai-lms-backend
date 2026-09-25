@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # AI-Powered LMS Backend
 
-Backend-only Learning Management System: video → transcript → RAG index → assessment generation → answer evaluation → learning report. Full brief: `AI-Powered_LMS.md` (phases 0–9 in §7). User-facing docs: `README.md`; architecture diagram: `docs/architecture.md`; schema/ERD + vector layout: `docs/database.md`; every trade-off (D1–D25): `docs/decisions.md`.
+Backend-only Learning Management System: video → transcript → RAG index → assessment generation → answer evaluation → learning report. Full brief: `AI-Powered_LMS.md` (phases 0–9 in §7). User-facing docs: `README.md`; architecture diagram: `docs/architecture.md`; schema/ERD + vector layout: `docs/database.md`; every trade-off (D1–D26): `docs/decisions.md`; 10-minute demo script: `docs/walkthrough.md`.
 
 ## Stack
 
@@ -30,6 +30,7 @@ uvicorn app.main:app --reload             # migrates the DB on startup; http://l
 pytest                                    # full offline suite (~5 s)
 pytest tests/unit/test_grading.py         # one file
 pytest tests/api/test_flow.py -k threshold # one test by name
+ruff check .                              # lint (config in pyproject.toml; `ruff check --fix .` for safe fixes)
 python scripts/fetch_sample_videos.py     # download the 3 sample lectures into sample_data/videos/
 python scripts/demo.py                    # end-to-end demo against a running API → docs/sample-outputs/
 python scripts/export_openapi.py          # regenerate docs/openapi.json after API changes
@@ -48,6 +49,8 @@ sh scripts/lock_requirements.sh           # after editing requirements*.txt: reg
 ```
 
 Set `LLM_PROVIDER=fake` to run the whole pipeline without a Groq key. All settings live in `app/config.py`.
+
+CI (`.github/workflows/ci.yml`) runs `ruff check .` and `pytest` on Python 3.12 with the locked deps; keep both green. Ruff is pinned in the workflow (not in the lock files, D26) — `pip install ruff` locally. Don't run `scripts/lock_requirements.sh` casually: it re-resolves every runtime pin.
 
 ## Architecture
 

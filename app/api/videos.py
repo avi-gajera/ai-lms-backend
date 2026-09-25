@@ -1,6 +1,5 @@
 """/videos — register + process videos, report watch progress, ad-hoc retrieval."""
 
-import shutil
 import uuid
 from pathlib import Path
 

@@ -56,7 +56,7 @@ def label_topics(
         logger.warning("topic labelling failed; using default topic", extra={"error": exc.message})
         return {c.index: DEFAULT_TOPIC for c in chunks}
     labels = [topics.get(c.index, DEFAULT_TOPIC) for c in chunks]
-    return dict(zip((c.index for c in chunks), cap_topics(labels, max_topics)))
+    return dict(zip((c.index for c in chunks), cap_topics(labels, max_topics), strict=True))
 
 
 def cap_topics(labels: list[str], max_topics: int) -> list[str]:

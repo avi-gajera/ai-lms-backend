@@ -60,7 +60,7 @@ def compute_stats(
         t["avg_score"] = round(t.pop("score") / t["questions"], 2)
         t["accuracy"] = round(t["correct"] / t["questions"], 2)
 
-    topics: "OrderedDict[str, dict]" = OrderedDict()
+    topics: OrderedDict[str, dict] = OrderedDict()
     for a in answers:
         q = a.question
         t = topics.setdefault(

@@ -12,7 +12,7 @@ import threading
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from app.config import get_settings
@@ -35,7 +35,7 @@ class _LocalTask:
     state: str = "PENDING"
     result: Any = None
     error: str | None = None
-    created: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    created: datetime = field(default_factory=lambda: datetime.now(UTC))
 
 
 class LocalRunner:

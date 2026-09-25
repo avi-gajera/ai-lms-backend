@@ -50,7 +50,7 @@ def question_counts(total: int, mix: dict[str, float]) -> dict[str, int]:
 
 def select_representative(chunks: list[TranscriptChunk], max_chunks: int) -> list[TranscriptChunk]:
     """Round-robin across topics (in order of first appearance), evenly spaced within each topic."""
-    by_topic: "OrderedDict[str, list[TranscriptChunk]]" = OrderedDict()
+    by_topic: OrderedDict[str, list[TranscriptChunk]] = OrderedDict()
     for c in sorted(chunks, key=lambda c: c.chunk_index):
         by_topic.setdefault(c.topic, []).append(c)
 

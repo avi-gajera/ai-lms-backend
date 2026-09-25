@@ -1,0 +1,22 @@
+# Tool configuration only (the app is not packaged). Dependencies live in requirements*.txt / *.lock.
+
+[tool.ruff]
+target-version = "py312"
+line-length = 140
+extend-exclude = [".claude", "aidlc"]
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, bugbear, pyupgrade
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+# The repo's alembic/ migrations folder would otherwise make the `alembic` library look first-party.
+known-first-party = ["app", "scripts", "tests"]
+known-third-party = ["alembic"]
+
+[tool.ruff.lint.flake8-bugbear]
+# FastAPI declares parameters via calls in defaults (Depends/File/Form/Query) by design.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.File", "fastapi.Form", "fastapi.Query", "fastapi.Body"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

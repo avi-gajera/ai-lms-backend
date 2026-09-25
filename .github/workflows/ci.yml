@@ -1,0 +1,35 @@
+# Lint + offline test suite on every push / PR. Installs the same locked dependencies as the Docker
+# image (CPU-only torch from the PyTorch index, then requirements.lock + requirements-dev.lock).
+# The tests need no services or model downloads: fake LLM, hashing embeddings, in-memory Qdrant.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install ruff==0.16.9
+      - run: ruff check .
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements*.lock
+      - name: Install locked dependencies
+        run: |
+          pip install --no-deps --index-url https://download.pytorch.org/whl/cpu "$(grep '^torch==' requirements.lock)"
+          pip install -r requirements.lock -r requirements-dev.lock
+      - run: pytest -q

@@ -28,7 +28,7 @@ def process_video(self, video_id: str) -> dict:
                 "transient failure; retrying",
                 extra={"video_id": video_id, "retry": self.request.retries + 1, "in_s": countdown, "error": str(exc)[:300]},
             )
-            raise self.retry(exc=exc, countdown=countdown, max_retries=max_retries)
+            raise self.retry(exc=exc, countdown=countdown, max_retries=max_retries) from exc
         mark_video_failed(video_id, f"{type(exc).__name__}: {exc}")
         raise
     except Exception as exc:
