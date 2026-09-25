@@ -22,9 +22,13 @@ def _stored_videos() -> list[Path]:
 
 def _multipart(size: int, boundary: str = "lmsboundary") -> tuple[bytes, dict[str, str]]:
     body = (
-        f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="big.mp4"\r\n'
-        "Content-Type: video/mp4\r\n\r\n"
-    ).encode() + b"0" * size + f"\r\n--{boundary}--\r\n".encode()
+        (
+            f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="big.mp4"\r\n'
+            "Content-Type: video/mp4\r\n\r\n"
+        ).encode()
+        + b"0" * size
+        + f"\r\n--{boundary}--\r\n".encode()
+    )
     return body, {"content-type": f"multipart/form-data; boundary={boundary}"}
 
 
@@ -83,7 +87,7 @@ def test_safe_request_id_is_echoed(client, rid):
     assert client.get("/health", headers={"X-Request-ID": rid}).headers["X-Request-ID"] == rid
 
 
-@pytest.mark.parametrize("rid", ["A" * 500, "has spaces", "x\"}; drop"])
+@pytest.mark.parametrize("rid", ["A" * 500, "has spaces", 'x"}; drop'])
 def test_unsafe_request_id_is_replaced(client, rid):
     echoed = client.get("/health", headers={"X-Request-ID": rid}).headers["X-Request-ID"]
     assert echoed != rid and len(echoed) == 36  # a fresh uuid4

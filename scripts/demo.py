@@ -47,7 +47,9 @@ def _check(r: requests.Response, expected: int) -> dict:
 PROFILES = {
     "strong": lambda i, n: "wrong" if i == 1 else "partial" if i == n - 2 else "right",
     "average": lambda i, n: "skip" if i == n - 1 else "wrong" if i % 3 == 2 else "partial" if i % 2 else "right",
-    "struggling": lambda i, n: "right" if i in (0, n - 3) else "skip" if i == n - 1 else "partial" if i % 2 else "wrong",
+    "struggling": lambda i, n: (
+        "right" if i in (0, n - 3) else "skip" if i == n - 1 else "partial" if i % 2 else "wrong"
+    ),
 }
 
 
@@ -101,7 +103,8 @@ def report_markdown(video: dict, assessment: dict, attempt: dict, report: dict) 
         "| Topic | Questions | Correct | Avg score | Status | Video segments |",
         "|---|---|---|---|---|---|",
         *[
-            f"| {t['topic']} | {t['questions']} | {t['correct']} | {t['avg_score']} | {t['status']} | {', '.join(t['video_segments'])} |"
+            f"| {t['topic']} | {t['questions']} | {t['correct']} | {t['avg_score']} | {t['status']} "
+            f"| {', '.join(t['video_segments'])} |"
             for t in report["topic_breakdown"]
         ],
         "",
@@ -117,7 +120,10 @@ def report_markdown(video: dict, assessment: dict, attempt: dict, report: dict) 
         "",
         "## Weaknesses",
         "",
-        *([f"- {w['topic']} (avg {w['avg_score']}) — rewatch {', '.join(w['rewatch'])}" for w in report["weaknesses"]] or ["- (none)"]),
+        *(
+            [f"- {w['topic']} (avg {w['avg_score']}) — rewatch {', '.join(w['rewatch'])}" for w in report["weaknesses"]]
+            or ["- (none)"]
+        ),
         "",
         "## Suggestions",
         "",
@@ -177,19 +183,33 @@ def run_one(base: str, sample: str, learner: str, num_questions: int, profile: s
 
     locked = requests.post(f"{base}/assessments", json={"video_id": vid, "learner_id": learner})
     _save(folder, "03_assessment_locked_409.json", {"status_code": locked.status_code, **locked.json()})
-    _save(folder, "03_progress.json", _check(
-        requests.post(f"{base}/videos/{vid}/progress", json={"learner_id": learner, "progress": 1.0}), 200))
+    _save(
+        folder,
+        "03_progress.json",
+        _check(requests.post(f"{base}/videos/{vid}/progress", json={"learner_id": learner, "progress": 1.0}), 200),
+    )
 
-    assessment = _check(requests.post(
-        f"{base}/assessments", json={"video_id": vid, "learner_id": learner, "num_questions": num_questions}), 201)
+    assessment = _check(
+        requests.post(
+            f"{base}/assessments", json={"video_id": vid, "learner_id": learner, "num_questions": num_questions}
+        ),
+        201,
+    )
     _save(folder, "04_assessment.json", assessment)
     print(f"assessment {assessment['id']}: {[q['type'] for q in assessment['questions']]}")
 
     answers = simulated_answers(assessment["id"], profile)
-    _save(folder, "05_attempt_request.json",
-          {"learner_profile": profile, "assessment_id": assessment["id"], "learner_id": learner, "answers": answers})
-    attempt = _check(requests.post(
-        f"{base}/attempts", json={"assessment_id": assessment["id"], "learner_id": learner, "answers": answers}), 201)
+    _save(
+        folder,
+        "05_attempt_request.json",
+        {"learner_profile": profile, "assessment_id": assessment["id"], "learner_id": learner, "answers": answers},
+    )
+    attempt = _check(
+        requests.post(
+            f"{base}/attempts", json={"assessment_id": assessment["id"], "learner_id": learner, "answers": answers}
+        ),
+        201,
+    )
     _save(folder, "05_attempt_evaluation.json", attempt)
     print(f"attempt {attempt['id']}: {attempt['total_score']}/{attempt['max_score']} ({attempt['percentage']}%)")
 
@@ -212,7 +232,8 @@ def main() -> None:
     from app.config import get_settings
 
     videos = args.video or sorted(
-        p.name for p in Path(get_settings().sample_videos_dir).iterdir()
+        p.name
+        for p in Path(get_settings().sample_videos_dir).iterdir()
         if p.suffix.lower() in get_settings().allowed_video_extensions
     )
     if not videos:
@@ -221,7 +242,9 @@ def main() -> None:
     print(f"API health: {health}")
     profiles = list(PROFILES)
     for i, v in enumerate(videos):
-        run_one(args.base_url, v, args.learner, args.num_questions, args.profile or profiles[i % len(profiles)], args.out)
+        run_one(
+            args.base_url, v, args.learner, args.num_questions, args.profile or profiles[i % len(profiles)], args.out
+        )
 
 
 if __name__ == "__main__":

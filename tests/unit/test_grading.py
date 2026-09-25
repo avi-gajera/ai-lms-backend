@@ -32,8 +32,15 @@ def test_grade_mcq():
 
 @pytest.mark.parametrize(
     "response,correct,ok",
-    [("true", "true", True), ("T", "true", True), ("Yes", "true", True), ("false", "true", False),
-     ("no", "false", True), ("maybe", "true", False), (None, "false", False)],
+    [
+        ("true", "true", True),
+        ("T", "true", True),
+        ("Yes", "true", True),
+        ("false", "true", False),
+        ("no", "false", True),
+        ("maybe", "true", False),
+        (None, "false", False),
+    ],
 )
 def test_grade_true_false(response, correct, ok):
     assert grade_true_false(response, correct)[0] is ok

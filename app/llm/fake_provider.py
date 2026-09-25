@@ -90,31 +90,51 @@ class FakeLLMProvider(LLMProvider):
             k = offset + i
             c = chunks[k % len(chunks)]
             fact = _sentence(c["text"])
-            yield k, c, fact, dict(
-                explanation=f"The video explains: {fact}", topic=c["topic"],
-                difficulty="medium", source_chunk_ids=[c["id"]],
+            yield (
+                k,
+                c,
+                fact,
+                dict(
+                    explanation=f"The video explains: {fact}",
+                    topic=c["topic"],
+                    difficulty="medium",
+                    source_chunk_ids=[c["id"]],
+                ),
             )
 
     def _mcq(self, data: dict) -> MCQSet:
-        return MCQSet(questions=[
-            MCQItem(prompt=f"Which statement best reflects the video's point about {c['topic']} (Q{k})?",
+        return MCQSet(
+            questions=[
+                MCQItem(
+                    prompt=f"Which statement best reflects the video's point about {c['topic']} (Q{k})?",
                     options=[fact, "None of the ideas in the video", "The opposite claim", "An unrelated claim"],
-                    correct_answer=fact, **common)
-            for k, c, fact, common in self._items(data)
-        ])
+                    correct_answer=fact,
+                    **common,
+                )
+                for k, c, fact, common in self._items(data)
+            ]
+        )
 
     def _true_false(self, data: dict) -> TrueFalseSet:
-        return TrueFalseSet(questions=[
-            TrueFalseItem(prompt=f"(Q{k}) {fact}", is_true=True, **common)
-            for k, c, fact, common in self._items(data)
-        ])
+        return TrueFalseSet(
+            questions=[
+                TrueFalseItem(prompt=f"(Q{k}) {fact}", is_true=True, **common)
+                for k, c, fact, common in self._items(data)
+            ]
+        )
 
     def _short(self, data: dict) -> ShortAnswerSet:
-        return ShortAnswerSet(questions=[
-            ShortAnswerItem(prompt=f"In your own words, explain the key idea about {c['topic']} (Q{k}).",
-                            reference_answer=fact, rubric=f"Mentions: {fact}", **common)
-            for k, c, fact, common in self._items(data)
-        ])
+        return ShortAnswerSet(
+            questions=[
+                ShortAnswerItem(
+                    prompt=f"In your own words, explain the key idea about {c['topic']} (Q{k}).",
+                    reference_answer=fact,
+                    rubric=f"Mentions: {fact}",
+                    **common,
+                )
+                for k, c, fact, common in self._items(data)
+            ]
+        )
 
     @staticmethod
     def _judge(data: dict) -> JudgedAnswers:
@@ -122,15 +142,18 @@ class FakeLLMProvider(LLMProvider):
         for item in data.get("answers_to_grade", []):
             ref, resp = _words(item.get("reference_answer", "")), _words(item.get("response", ""))
             score = round(len(ref & resp) / len(ref), 2) if ref else 0.0
-            results.append(JudgedAnswer(
-                question_id=item["question_id"],
-                score=score,
-                feedback=(
-                    "Good answer — it covers the key idea." if score >= 0.6
-                    else "Your answer misses part of the key idea from the video."
-                ),
-                improvement_areas=[] if score >= 0.6 else [f"Review: {item.get('topic', 'this topic')}"],
-            ))
+            results.append(
+                JudgedAnswer(
+                    question_id=item["question_id"],
+                    score=score,
+                    feedback=(
+                        "Good answer — it covers the key idea."
+                        if score >= 0.6
+                        else "Your answer misses part of the key idea from the video."
+                    ),
+                    improvement_areas=[] if score >= 0.6 else [f"Review: {item.get('topic', 'this topic')}"],
+                )
+            )
         return JudgedAnswers(results=results)
 
     @staticmethod

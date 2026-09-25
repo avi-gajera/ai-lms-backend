@@ -63,9 +63,7 @@ class Video(Base):
     transcript_segments: Mapped[list[Any] | None] = mapped_column()
     celery_task_id: Mapped[str | None] = mapped_column(String(64))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
-    updated_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=_now, onupdate=_now
-    )
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now)
 
     chunks: Mapped[list["TranscriptChunk"]] = relationship(
         back_populates="video", cascade="all, delete-orphan", order_by="TranscriptChunk.chunk_index"
@@ -96,9 +94,7 @@ class LearnerProgress(Base):
     learner_id: Mapped[str] = mapped_column(String(128), index=True)
     video_id: Mapped[str] = mapped_column(ForeignKey("videos.id", ondelete="CASCADE"))
     progress: Mapped[float] = mapped_column(Float, default=0.0)
-    updated_at: Mapped[datetime] = mapped_column(
-        DateTime(timezone=True), default=_now, onupdate=_now
-    )
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now, onupdate=_now)
 
 
 class Assessment(Base):
@@ -119,9 +115,7 @@ class Question(Base):
     __tablename__ = "questions"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
-    assessment_id: Mapped[str] = mapped_column(
-        ForeignKey("assessments.id", ondelete="CASCADE"), index=True
-    )
+    assessment_id: Mapped[str] = mapped_column(ForeignKey("assessments.id", ondelete="CASCADE"), index=True)
     position: Mapped[int] = mapped_column(Integer)
     type: Mapped[str] = mapped_column(String(20))
     prompt: Mapped[str] = mapped_column(Text)
@@ -142,17 +136,13 @@ class Attempt(Base):
     __tablename__ = "attempts"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
-    assessment_id: Mapped[str] = mapped_column(
-        ForeignKey("assessments.id", ondelete="CASCADE"), index=True
-    )
+    assessment_id: Mapped[str] = mapped_column(ForeignKey("assessments.id", ondelete="CASCADE"), index=True)
     learner_id: Mapped[str] = mapped_column(String(128), index=True)
     submitted_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_now)
     total_score: Mapped[float] = mapped_column(Float, default=0.0)
     max_score: Mapped[float] = mapped_column(Float, default=0.0)
 
-    answers: Mapped[list["Answer"]] = relationship(
-        back_populates="attempt", cascade="all, delete-orphan"
-    )
+    answers: Mapped[list["Answer"]] = relationship(back_populates="attempt", cascade="all, delete-orphan")
     report: Mapped["Report | None"] = relationship(
         back_populates="attempt", cascade="all, delete-orphan", uselist=False
     )
@@ -180,9 +170,7 @@ class Report(Base):
     __tablename__ = "reports"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
-    attempt_id: Mapped[str] = mapped_column(
-        ForeignKey("attempts.id", ondelete="CASCADE"), unique=True
-    )
+    attempt_id: Mapped[str] = mapped_column(ForeignKey("attempts.id", ondelete="CASCADE"), unique=True)
     overall: Mapped[dict[str, Any]] = mapped_column(default=dict)
     by_type: Mapped[dict[str, Any]] = mapped_column(default=dict)
     topic_breakdown: Mapped[list[Any]] = mapped_column(default=list)

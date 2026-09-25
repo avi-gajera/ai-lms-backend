@@ -1,6 +1,6 @@
 """Write the OpenAPI spec to docs/openapi.json (reviewable without running the server).
 
-    python scripts/export_openapi.py
+python scripts/export_openapi.py
 """
 
 import json

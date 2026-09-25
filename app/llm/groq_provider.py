@@ -82,9 +82,7 @@ class GroqProvider(LLMProvider):
     def _llm(self, tier: Tier) -> ChatGroq:
         if tier not in self._chat:
             extra: dict[str, Any] = {}
-            effort = (
-                self.settings.llm_reasoning_effort_fast if tier == "fast" else self.settings.llm_reasoning_effort
-            )
+            effort = self.settings.llm_reasoning_effort_fast if tier == "fast" else self.settings.llm_reasoning_effort
             if effort:
                 extra["reasoning_effort"] = effort
             self._chat[tier] = ChatGroq(
@@ -116,8 +114,10 @@ class GroqProvider(LLMProvider):
                     # failure, not a bad request — another attempt usually succeeds.
                     raise _Retryable(f"invalid generation: {str(exc)[:300]}") from exc
                 if method == "json_schema" and ("not supported" in text or "unsupported" in text):
-                    logger.warning("json_schema not supported; falling back to tool calling",
-                                   extra={"schema": schema.__name__, "error": str(exc)[:300]})
+                    logger.warning(
+                        "json_schema not supported; falling back to tool calling",
+                        extra={"schema": schema.__name__, "error": str(exc)[:300]},
+                    )
                     self._fallback_schemas.add(schema.__name__)
                     raise _Retryable(str(exc)) from exc
                 raise
@@ -153,8 +153,11 @@ class GroqProvider(LLMProvider):
                 reraise=False,
                 before_sleep=lambda rs: logger.warning(
                     "llm call retrying",
-                    extra={"what": what, "attempt": rs.attempt_number,
-                           "error": str(rs.outcome.exception())[:300] if rs.outcome else None},
+                    extra={
+                        "what": what,
+                        "attempt": rs.attempt_number,
+                        "error": str(rs.outcome.exception())[:300] if rs.outcome else None,
+                    },
                 ),
             ):
                 with attempt:

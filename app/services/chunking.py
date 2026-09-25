@@ -28,9 +28,7 @@ class Chunk:
         return len(self.text.split())
 
 
-def chunk_segments(
-    segments: list[Segment], target_words: int = 220, overlap_words: int = 40
-) -> list[Chunk]:
+def chunk_segments(segments: list[Segment], target_words: int = 220, overlap_words: int = 40) -> list[Chunk]:
     if target_words <= 0:
         raise ValueError("target_words must be positive")
     if not 0 <= overlap_words < target_words:

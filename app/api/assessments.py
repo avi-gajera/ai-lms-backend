@@ -32,9 +32,13 @@ def create_assessment(
     settings: Settings = Depends(get_settings_dep),
 ) -> Assessment:
     return generate_assessment(
-        db, llm, settings,
-        video_id=body.video_id, learner_id=body.learner_id,
-        num_questions=body.num_questions, mix=body.mix,
+        db,
+        llm,
+        settings,
+        video_id=body.video_id,
+        learner_id=body.learner_id,
+        num_questions=body.num_questions,
+        mix=body.mix,
     )
 
 

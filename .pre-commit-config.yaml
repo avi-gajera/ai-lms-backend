@@ -1,0 +1,23 @@
+# Local git hooks: `pip install pre-commit && pre-commit install` (runs on every commit).
+# CI enforces the same Ruff checks, so skipping the hooks only moves the failure to CI.
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.9  # keep in sync with the ruff pin in .github/workflows/ci.yml
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+
+# Generated / recorded output is kept byte-for-byte as produced.
+exclude: ^(docs/sample-outputs/|docs/openapi\.json$|data/)

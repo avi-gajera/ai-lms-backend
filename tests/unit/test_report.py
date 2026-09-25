@@ -5,7 +5,9 @@ from app.services.report import _template_narrative, compute_stats
 
 def _answer(pos, qtype, topic, score, correct, chunk, areas=(), response="x"):
     q = SimpleNamespace(position=pos, type=qtype, topic=topic, source_chunk_ids=[chunk])
-    return SimpleNamespace(question=q, score=score, is_correct=correct, improvement_areas=list(areas), response=response)
+    return SimpleNamespace(
+        question=q, score=score, is_correct=correct, improvement_areas=list(areas), response=response
+    )
 
 
 def test_compute_stats_topic_breakdown_and_bands():
@@ -13,16 +15,25 @@ def test_compute_stats_topic_breakdown_and_bands():
         "c1": SimpleNamespace(start_time=0.0, end_time=60.0),
         "c2": SimpleNamespace(start_time=60.0, end_time=130.0),
     }
-    attempt = SimpleNamespace(answers=[
-        _answer(0, "mcq", "Recursion", 1.0, True, "c1"),
-        _answer(1, "short_answer", "Recursion", 0.8, True, "c1"),
-        _answer(2, "mcq", "Stacks", 0.0, False, "c2", ["Stacks: revisit"]),
-        _answer(3, "true_false", "Stacks", 0.0, False, "c2", ["Stacks: revisit", "LIFO order"], response=None),
-    ])
+    attempt = SimpleNamespace(
+        answers=[
+            _answer(0, "mcq", "Recursion", 1.0, True, "c1"),
+            _answer(1, "short_answer", "Recursion", 0.8, True, "c1"),
+            _answer(2, "mcq", "Stacks", 0.0, False, "c2", ["Stacks: revisit"]),
+            _answer(3, "true_false", "Stacks", 0.0, False, "c2", ["Stacks: revisit", "LIFO order"], response=None),
+        ]
+    )
     s = compute_stats(attempt, chunks, strength=0.8, weakness=0.6)
 
-    assert s["overall"] == {"score": 1.8, "max_score": 4.0, "percentage": 45.0, "correct": 2,
-                            "total_questions": 4, "attempted": 3, "band": "needs improvement"}
+    assert s["overall"] == {
+        "score": 1.8,
+        "max_score": 4.0,
+        "percentage": 45.0,
+        "correct": 2,
+        "total_questions": 4,
+        "attempted": 3,
+        "band": "needs improvement",
+    }
     assert s["by_type"]["mcq"] == {"questions": 2, "correct": 1, "avg_score": 0.5, "accuracy": 0.5}
     topics = {t["topic"]: t for t in s["topic_breakdown"]}
     assert topics["Recursion"]["status"] == "strength" and topics["Recursion"]["avg_score"] == 0.9

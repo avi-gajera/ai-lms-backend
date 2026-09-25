@@ -117,7 +117,9 @@ def test_assessment_requires_indexed_video_and_threshold(client, sample_video):
     p = client.post(f"/videos/{v['video_id']}/progress", json={"learner_id": "l1", "progress": 0.1}).json()
     assert p["progress"] == 0.95 and p["assessment_unlocked"] is True
     assert client.post("/assessments", json=body).status_code == 201
-    assert client.post(f"/videos/{v['video_id']}/progress", json={"learner_id": "l1", "progress": 1.5}).status_code == 422
+    assert (
+        client.post(f"/videos/{v['video_id']}/progress", json={"learner_id": "l1", "progress": 1.5}).status_code == 422
+    )
 
 
 def test_assessment_mix_topics_and_hidden_answers(client, sample_video):
@@ -163,7 +165,9 @@ def test_mixed_attempt_scores_feedback_and_weaknesses(client, sample_video):
             answers.append({"question_id": qid, "response": "false" if q.correct_answer == "true" else "true"})
         else:
             answers.append({"question_id": qid, "response": "I am not sure about this one."})
-    att = client.post("/attempts", json={"assessment_id": a["id"], "learner_id": "learner-1", "answers": answers}).json()
+    att = client.post(
+        "/attempts", json={"assessment_id": a["id"], "learner_id": "learner-1", "answers": answers}
+    ).json()
     assert att["total_score"] < att["max_score"]
     first = att["answers"][0]
     assert first["evaluator"] == "none" and first["score"] == 0 and first["feedback"].startswith("Not attempted")
@@ -180,7 +184,9 @@ def test_mixed_attempt_scores_feedback_and_weaknesses(client, sample_video):
 def test_attempt_validation(client, sample_video):
     _, a = _ready_assessment(client, sample_video)
     base = {"assessment_id": a["id"], "learner_id": "learner-1"}
-    assert client.post("/attempts", json=base | {"answers": [{"question_id": "nope", "response": "a"}]}).status_code == 422
+    assert (
+        client.post("/attempts", json=base | {"answers": [{"question_id": "nope", "response": "a"}]}).status_code == 422
+    )
     q = a["questions"][0]["id"]
     dup = [{"question_id": q, "response": "a"}] * 2
     assert client.post("/attempts", json=base | {"answers": dup}).status_code == 422

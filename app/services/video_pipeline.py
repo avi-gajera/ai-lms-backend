@@ -35,9 +35,7 @@ logger = get_logger(__name__)
 DEFAULT_TOPIC = "General"
 
 
-def label_topics(
-    llm: LLMProvider, title: str, chunks: list[Chunk], batch_size: int
-) -> dict[int, str]:
+def label_topics(llm: LLMProvider, title: str, chunks: list[Chunk], batch_size: int) -> dict[int, str]:
     """Topic per chunk_index via the fast model; falls back to DEFAULT_TOPIC on any LLM failure."""
     topics: dict[int, str] = {}
     known: list[str] = []
@@ -141,8 +139,13 @@ def run(
         video.duration_s = tr.duration_s
         logger.info(
             "transcribed",
-            extra={"video_id": video_id, "segments": len(segments), "language": tr.language,
-                   "duration_s": round(tr.duration_s, 1), "elapsed_s": round(time.perf_counter() - t0, 1)},
+            extra={
+                "video_id": video_id,
+                "segments": len(segments),
+                "language": tr.language,
+                "duration_s": round(tr.duration_s, 1),
+                "elapsed_s": round(time.perf_counter() - t0, 1),
+            },
         )
     _set_status(db, video, VideoStatus.TRANSCRIBED)
     if not segments:
@@ -158,8 +161,13 @@ def run(
         video.id,
         [
             retrieval.IndexedChunk(
-                chunk_id=r.id, video_id=video.id, chunk_index=r.chunk_index, text=r.text,
-                start_time=r.start_time, end_time=r.end_time, topic=r.topic,
+                chunk_id=r.id,
+                video_id=video.id,
+                chunk_index=r.chunk_index,
+                text=r.text,
+                start_time=r.start_time,
+                end_time=r.end_time,
+                topic=r.topic,
             )
             for r in rows
         ],
@@ -167,8 +175,12 @@ def run(
     _set_status(db, video, VideoStatus.INDEXED)
     logger.info(
         "video indexed",
-        extra={"video_id": video_id, "chunks": len(rows), "topics": sorted(set(topics.values())),
-               "elapsed_s": round(time.perf_counter() - t0, 1)},
+        extra={
+            "video_id": video_id,
+            "chunks": len(rows),
+            "topics": sorted(set(topics.values())),
+            "elapsed_s": round(time.perf_counter() - t0, 1),
+        },
     )
     return video
 

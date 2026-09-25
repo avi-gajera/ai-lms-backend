@@ -31,9 +31,7 @@ def _band(pct: float) -> str:
     return "needs improvement"
 
 
-def compute_stats(
-    attempt: Attempt, chunks: dict[str, TranscriptChunk], strength: float, weakness: float
-) -> dict:
+def compute_stats(attempt: Attempt, chunks: dict[str, TranscriptChunk], strength: float, weakness: float) -> dict:
     """Pure aggregation over an evaluated attempt (unit-tested)."""
     answers = sorted(attempt.answers, key=lambda a: a.question.position)
     total = len(answers)
@@ -63,9 +61,7 @@ def compute_stats(
     topics: OrderedDict[str, dict] = OrderedDict()
     for a in answers:
         q = a.question
-        t = topics.setdefault(
-            q.topic, {"topic": q.topic, "questions": 0, "correct": 0, "score": 0.0, "_chunks": set()}
-        )
+        t = topics.setdefault(q.topic, {"topic": q.topic, "questions": 0, "correct": 0, "score": 0.0, "_chunks": set()})
         t["questions"] += 1
         t["correct"] += int(a.is_correct)
         t["score"] += a.score
@@ -75,20 +71,21 @@ def compute_stats(
     for t in topics.values():
         src = sorted((chunks[c] for c in t.pop("_chunks")), key=lambda c: c.start_time)
         avg = round(t.pop("score") / t["questions"], 2)
-        breakdown.append({
-            **t,
-            "avg_score": avg,
-            "accuracy": round(t["correct"] / t["questions"], 2),
-            "status": "strength" if avg >= strength else "weakness" if avg < weakness else "developing",
-            "video_segments": [f"{fmt_ts(c.start_time)}-{fmt_ts(c.end_time)}" for c in src],
-        })
+        breakdown.append(
+            {
+                **t,
+                "avg_score": avg,
+                "accuracy": round(t["correct"] / t["questions"], 2),
+                "status": "strength" if avg >= strength else "weakness" if avg < weakness else "developing",
+                "video_segments": [f"{fmt_ts(c.start_time)}-{fmt_ts(c.end_time)}" for c in src],
+            }
+        )
 
-    strengths = [
-        {"topic": t["topic"], "avg_score": t["avg_score"]} for t in breakdown if t["status"] == "strength"
-    ]
+    strengths = [{"topic": t["topic"], "avg_score": t["avg_score"]} for t in breakdown if t["status"] == "strength"]
     weaknesses = [
         {"topic": t["topic"], "avg_score": t["avg_score"], "rewatch": t["video_segments"]}
-        for t in breakdown if t["status"] == "weakness"
+        for t in breakdown
+        if t["status"] == "weakness"
     ]
 
     seen: set[str] = set()

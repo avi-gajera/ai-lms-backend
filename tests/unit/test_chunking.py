@@ -4,7 +4,9 @@ from app.services.chunking import Segment, chunk_segments
 
 
 def _segs(n: int, words: int = 10, dur: float = 5.0) -> list[Segment]:
-    return [Segment(start=i * dur, end=(i + 1) * dur, text=" ".join(f"w{i}_{j}" for j in range(words))) for i in range(n)]
+    return [
+        Segment(start=i * dur, end=(i + 1) * dur, text=" ".join(f"w{i}_{j}" for j in range(words))) for i in range(n)
+    ]
 
 
 def test_empty_and_blank_segments():

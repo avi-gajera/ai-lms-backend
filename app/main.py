@@ -43,8 +43,12 @@ async def lifespan(_: FastAPI):
         run_migrations()
     logger.info(
         "api started",
-        extra={"task_backend": s.task_backend, "llm_provider": s.llm_provider,
-               "qdrant": s.qdrant_url or s.qdrant_path, "db": s.database_url.split("://")[0]},
+        extra={
+            "task_backend": s.task_backend,
+            "llm_provider": s.llm_provider,
+            "qdrant": s.qdrant_url or s.qdrant_path,
+            "db": s.database_url.split("://")[0],
+        },
     )
     yield
 
@@ -59,7 +63,7 @@ app = FastAPI(
         "**Typical flow:** `POST /videos` → poll `GET /videos/{id}` until `indexed` → "
         "`POST /videos/{id}/progress` (≥ threshold) → `POST /assessments` → `POST /attempts` → "
         "`GET /attempts/{id}/report`.\n\n"
-        "Errors use one envelope: `{\"error\": {\"code\", \"message\", \"request_id\", \"details\"}}`."
+        'Errors use one envelope: `{"error": {"code", "message", "request_id", "details"}}`.'
     ),
     lifespan=lifespan,
 )
@@ -67,9 +71,7 @@ register_exception_handlers(app)
 
 # Added before `request_context` so it runs inside it: a 413 still carries a request id and is logged.
 # Headroom of 1 MB over MAX_UPLOAD_MB for the multipart framing and form fields around the file.
-app.add_middleware(
-    BodySizeLimitMiddleware, max_bytes=lambda: (get_settings().max_upload_mb + 1) * 1024 * 1024
-)
+app.add_middleware(BodySizeLimitMiddleware, max_bytes=lambda: (get_settings().max_upload_mb + 1) * 1024 * 1024)
 
 
 @app.middleware("http")
@@ -83,8 +85,12 @@ async def request_context(request: Request, call_next):
         response.headers["X-Request-ID"] = rid
         logger.info(
             "request",
-            extra={"method": request.method, "path": request.url.path, "status": response.status_code,
-                   "elapsed_ms": round((time.perf_counter() - start) * 1000, 1)},
+            extra={
+                "method": request.method,
+                "path": request.url.path,
+                "status": response.status_code,
+                "elapsed_ms": round((time.perf_counter() - start) * 1000, 1),
+            },
         )
         return response
     finally:
@@ -121,5 +127,6 @@ def health() -> HealthOut:
         except Exception as exc:  # pragma: no cover
             checks["broker"] = f"error: {exc}"
     ok = all(v == "ok" for v in checks.values())
-    return HealthOut(status="ok" if ok else "degraded", checks=checks,
-                     task_backend=s.task_backend, llm_provider=s.llm_provider)
+    return HealthOut(
+        status="ok" if ok else "degraded", checks=checks, task_backend=s.task_backend, llm_provider=s.llm_provider
+    )

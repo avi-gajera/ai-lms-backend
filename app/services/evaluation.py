@@ -54,7 +54,9 @@ def grade_closed(q: Question, response: str | None, chunks: dict[str, Transcript
             g.feedback = f"Correct.{explanation}"
         else:
             picked = f"You chose {_quote(chosen)}. " if chosen else "Your response did not match any option. "
-            g.feedback = f"Incorrect. {picked}The correct answer is {_quote(q.correct_answer)}.{explanation}{_where(q, chunks)}"
+            g.feedback = (
+                f"Incorrect. {picked}The correct answer is {_quote(q.correct_answer)}.{explanation}{_where(q, chunks)}"
+            )
     else:
         ok, given = grade_true_false(response, q.correct_answer or "")
         g.is_correct, g.score = ok, 1.0 if ok else 0.0
@@ -133,11 +135,16 @@ def evaluate_attempt(
     for q in assessment.questions:
         resp = responses.get(q.id)
         if resp is None or not str(resp).strip():
-            graded.append(Graded(
-                question=q, response=None, evaluator="none",
-                feedback="Not attempted." + (f" Reference answer: {q.reference_answer}" if q.reference_answer else ""),
-                improvement_areas=[f"{q.topic}: question left unanswered{_where(q, chunks)}"],
-            ))
+            graded.append(
+                Graded(
+                    question=q,
+                    response=None,
+                    evaluator="none",
+                    feedback="Not attempted."
+                    + (f" Reference answer: {q.reference_answer}" if q.reference_answer else ""),
+                    improvement_areas=[f"{q.topic}: question left unanswered{_where(q, chunks)}"],
+                )
+            )
         elif q.type == QuestionType.SHORT_ANSWER:
             g = Graded(question=q, response=str(resp), evaluator="llm")
             graded.append(g)
@@ -155,20 +162,26 @@ def evaluate_attempt(
         max_score=float(len(graded)),
     )
     for g in graded:
-        attempt.answers.append(Answer(
-            question_id=g.question.id,
-            response=g.response,
-            score=g.score,
-            is_correct=g.is_correct,
-            feedback=g.feedback,
-            improvement_areas=g.improvement_areas,
-            evaluator=g.evaluator,
-        ))
+        attempt.answers.append(
+            Answer(
+                question_id=g.question.id,
+                response=g.response,
+                score=g.score,
+                is_correct=g.is_correct,
+                feedback=g.feedback,
+                improvement_areas=g.improvement_areas,
+                evaluator=g.evaluator,
+            )
+        )
     db.add(attempt)
     db.flush()  # assign ids; the caller commits together with the report
     logger.info(
         "attempt evaluated",
-        extra={"attempt_id": attempt.id, "score": attempt.total_score, "max": attempt.max_score,
-               "llm_graded": len(to_judge)},
+        extra={
+            "attempt_id": attempt.id,
+            "score": attempt.total_score,
+            "max": attempt.max_score,
+            "llm_graded": len(to_judge),
+        },
     )
     return attempt

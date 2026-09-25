@@ -241,9 +241,11 @@ The numbers are **computed**: overall %, performance band, per-type and per-topi
 ```bash
 pytest                  # offline test suite
 ruff check .            # lint (config in pyproject.toml)
+ruff format .           # format (Black-compatible, line length 120)
+pre-commit install      # optional: run lint + format automatically on every commit
 ```
 
-CI (`.github/workflows/ci.yml`) runs both on every push and pull request, on Python 3.12 with the locked dependencies.
+CI (`.github/workflows/ci.yml`) runs the tests, the lint and a format check on every push and pull request, on Python 3.12 with the locked dependencies.
 
 87 tests run fully offline in under 10 seconds, using a fake LLM, hashing embeddings, in-memory Qdrant, a temporary SQLite file, a fake transcriber and a fake downloader:
 

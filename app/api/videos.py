@@ -40,9 +40,17 @@ def _get_video(db: Session, video_id: str) -> Video:
 def _video_out(video: Video) -> VideoOut:
     topics = list(dict.fromkeys(c.topic for c in video.chunks))
     return VideoOut(
-        id=video.id, title=video.title, source_url=video.source_url, status=video.status, error=video.error,
-        duration_s=video.duration_s, language=video.language, chunk_count=len(video.chunks),
-        topics=topics, created_at=video.created_at, updated_at=video.updated_at,
+        id=video.id,
+        title=video.title,
+        source_url=video.source_url,
+        status=video.status,
+        error=video.error,
+        duration_s=video.duration_s,
+        language=video.language,
+        chunk_count=len(video.chunks),
+        topics=topics,
+        created_at=video.created_at,
+        updated_at=video.updated_at,
     )
 
 
@@ -60,9 +68,7 @@ def _resolve_sample(sample_path: str, settings: Settings) -> Path:
 def _check_extension(name: str, settings: Settings) -> str:
     ext = Path(name).suffix.lower()
     if ext not in settings.allowed_video_extensions:
-        raise ValidationFailed(
-            f"Unsupported file type '{ext}'", details={"allowed": settings.allowed_video_extensions}
-        )
+        raise ValidationFailed(f"Unsupported file type '{ext}'", details={"allowed": settings.allowed_video_extensions})
     return ext
 
 
@@ -128,8 +134,11 @@ def create_video(
     db.commit()
     logger.info("video queued", extra={"video_id": video.id, "task_id": task_id})
     return VideoAccepted(
-        video_id=video.id, task_id=task_id, status=video.status,
-        status_url=f"/videos/{video.id}", task_url=f"/tasks/{task_id}",
+        video_id=video.id,
+        task_id=task_id,
+        status=video.status,
+        status_url=f"/videos/{video.id}",
+        task_url=f"/tasks/{task_id}",
     )
 
 
@@ -164,7 +173,9 @@ def report_progress(
     row.progress = max(row.progress, body.progress)
     db.commit()
     return ProgressOut(
-        video_id=video_id, learner_id=body.learner_id, progress=row.progress,
+        video_id=video_id,
+        learner_id=body.learner_id,
+        progress=row.progress,
         completion_threshold=settings.completion_threshold,
         assessment_unlocked=row.progress >= settings.completion_threshold,
     )
@@ -185,7 +196,6 @@ def retrieve(
         video_id=video_id,
         query=body.query,
         results=[
-            RetrievedChunkOut(**h.__dict__, timestamp=f"{fmt_ts(h.start_time)}-{fmt_ts(h.end_time)}")
-            for h in hits
+            RetrievedChunkOut(**h.__dict__, timestamp=f"{fmt_ts(h.start_time)}-{fmt_ts(h.end_time)}") for h in hits
         ],
     )

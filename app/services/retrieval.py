@@ -64,8 +64,10 @@ def _ensure_collection(client: QdrantClient) -> None:
         )
         # Payload indexes make the per-video filter cheap on a server (embedded mode has none).
         if s.qdrant_url:
-            for key, schema in (("metadata.video_id", models.PayloadSchemaType.KEYWORD),
-                                ("metadata.chunk_index", models.PayloadSchemaType.INTEGER)):
+            for key, schema in (
+                ("metadata.video_id", models.PayloadSchemaType.KEYWORD),
+                ("metadata.chunk_index", models.PayloadSchemaType.INTEGER),
+            ):
                 client.create_payload_index(s.qdrant_collection, key, field_schema=schema)
         logger.info("created qdrant collection", extra={"collection": s.qdrant_collection})
 
@@ -79,9 +81,7 @@ def get_store() -> QdrantVectorStore:
 
 
 def _video_filter(video_id: str) -> models.Filter:
-    return models.Filter(
-        must=[models.FieldCondition(key="metadata.video_id", match=models.MatchValue(value=video_id))]
-    )
+    return models.Filter(must=[models.FieldCondition(key="metadata.video_id", match=models.MatchValue(value=video_id))])
 
 
 @dataclass
@@ -130,9 +130,7 @@ def index_chunks(video_id: str, chunks: list[IndexedChunk]) -> list[str]:
 
 
 def count_points(video_id: str) -> int:
-    return get_client().count(
-        get_settings().qdrant_collection, count_filter=_video_filter(video_id), exact=True
-    ).count
+    return get_client().count(get_settings().qdrant_collection, count_filter=_video_filter(video_id), exact=True).count
 
 
 @dataclass

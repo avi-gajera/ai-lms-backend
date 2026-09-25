@@ -85,12 +85,8 @@ class GeneratedQuestion(_Strict):
         description="mcq: the exact text of the correct option; true_false: 'true' or 'false'; "
         "short_answer: empty string"
     )
-    reference_answer: str = Field(
-        description="A model answer grounded in the context (required for short_answer)"
-    )
-    rubric: str = Field(
-        description="Key points a full-credit short answer must contain; empty for mcq/true_false"
-    )
+    reference_answer: str = Field(description="A model answer grounded in the context (required for short_answer)")
+    rubric: str = Field(description="Key points a full-credit short answer must contain; empty for mcq/true_false")
     explanation: str = Field(description="Why the correct answer is correct, citing the context")
     topic: str = Field(description="The topic of the source chunk(s) this question tests")
     difficulty: Literal["easy", "medium", "hard"]
@@ -99,18 +95,28 @@ class GeneratedQuestion(_Strict):
 
 def normalise_question(qtype: str, item: _QuestionBase) -> GeneratedQuestion:
     common = dict(
-        type=qtype, prompt=item.prompt, explanation=item.explanation, topic=item.topic,
-        difficulty=item.difficulty, source_chunk_ids=item.source_chunk_ids,
+        type=qtype,
+        prompt=item.prompt,
+        explanation=item.explanation,
+        topic=item.topic,
+        difficulty=item.difficulty,
+        source_chunk_ids=item.source_chunk_ids,
     )
     if isinstance(item, MCQItem):
-        return GeneratedQuestion(**common, options=item.options, correct_answer=item.correct_answer,
-                                 reference_answer=item.correct_answer, rubric="")
+        return GeneratedQuestion(
+            **common,
+            options=item.options,
+            correct_answer=item.correct_answer,
+            reference_answer=item.correct_answer,
+            rubric="",
+        )
     if isinstance(item, TrueFalseItem):
         answer = "true" if item.is_true else "false"
         return GeneratedQuestion(**common, options=[], correct_answer=answer, reference_answer=answer, rubric="")
     assert isinstance(item, ShortAnswerItem)
-    return GeneratedQuestion(**common, options=[], correct_answer="", reference_answer=item.reference_answer,
-                             rubric=item.rubric)
+    return GeneratedQuestion(
+        **common, options=[], correct_answer="", reference_answer=item.reference_answer, rubric=item.rubric
+    )
 
 
 # --- Short-answer grading (LLM-as-judge) -------------------------------------------------------

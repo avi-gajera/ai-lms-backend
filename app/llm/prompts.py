@@ -44,9 +44,7 @@ _TOPIC_LABEL = ChatPromptTemplate.from_messages(
 )
 
 
-def topic_label(
-    title: str, chunks: list[dict], known_topics: list[str], max_topics: int
-) -> tuple[str, str]:
+def topic_label(title: str, chunks: list[dict], known_topics: list[str], max_topics: int) -> tuple[str, str]:
     return _render(
         _TOPIC_LABEL,
         {"max_topics": max_topics, "known_topics": known_topics, "chunks": chunks},
@@ -101,9 +99,7 @@ _QUESTION_GEN = ChatPromptTemplate.from_messages(
 )
 
 
-def question_gen(
-    title: str, chunks: list[dict], qtype: str, n: int, already_asked: list[str]
-) -> tuple[str, str]:
+def question_gen(title: str, chunks: list[dict], qtype: str, n: int, already_asked: list[str]) -> tuple[str, str]:
     type_name, type_rules = _TYPE_RULES[qtype]
     return _render(
         _QUESTION_GEN,

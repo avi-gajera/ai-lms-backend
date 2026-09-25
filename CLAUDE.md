@@ -31,6 +31,8 @@ pytest                                    # full offline suite (~5 s)
 pytest tests/unit/test_grading.py         # one file
 pytest tests/api/test_flow.py -k threshold # one test by name
 ruff check .                              # lint (config in pyproject.toml; `ruff check --fix .` for safe fixes)
+ruff format .                             # format (line length 120); CI fails on unformatted code
+pre-commit install                        # hooks: ruff lint+format, whitespace/EOF/yaml/toml checks
 python scripts/fetch_sample_videos.py     # download the 3 sample lectures into sample_data/videos/
 python scripts/demo.py                    # end-to-end demo against a running API → docs/sample-outputs/
 python scripts/export_openapi.py          # regenerate docs/openapi.json after API changes
@@ -50,7 +52,7 @@ sh scripts/lock_requirements.sh           # after editing requirements*.txt: reg
 
 Set `LLM_PROVIDER=fake` to run the whole pipeline without a Groq key. All settings live in `app/config.py`.
 
-CI (`.github/workflows/ci.yml`) runs `ruff check .` and `pytest` on Python 3.12 with the locked deps; keep both green. Ruff is pinned in the workflow (not in the lock files, D26) — `pip install ruff` locally. Don't run `scripts/lock_requirements.sh` casually: it re-resolves every runtime pin.
+CI (`.github/workflows/ci.yml`) runs `ruff check .`, `ruff format --check .` and `pytest` on Python 3.12 with the locked deps; keep all green — run `ruff format .` before committing. Ruff is pinned in the workflow and in `.pre-commit-config.yaml` (keep the two in sync; not in the lock files, D26) — `pip install ruff pre-commit` locally. Don't run `scripts/lock_requirements.sh` casually: it re-resolves every runtime pin.
 
 ## Architecture
 

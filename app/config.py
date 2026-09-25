@@ -96,9 +96,7 @@ class Settings(BaseSettings):
     completion_threshold: float = 0.9
     default_num_questions: int = 8
     # Fractions per question type; normalised and rounded when an assessment is generated.
-    default_question_mix: dict[str, float] = Field(
-        default={"mcq": 0.4, "true_false": 0.2, "short_answer": 0.4}
-    )
+    default_question_mix: dict[str, float] = Field(default={"mcq": 0.4, "true_false": 0.2, "short_answer": 0.4})
     question_gen_max_chunks: int = 8
 
     # --- Evaluation / report ---

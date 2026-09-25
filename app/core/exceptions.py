@@ -75,9 +75,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     async def _app_error(_: Request, exc: AppError) -> JSONResponse:
         log = logger.warning if exc.status_code < 500 else logger.error
         log("request failed", extra={"error_code": exc.code, "error": exc.message})
-        return JSONResponse(
-            status_code=exc.status_code, content=error_envelope(exc.code, exc.message, exc.details)
-        )
+        return JSONResponse(status_code=exc.status_code, content=error_envelope(exc.code, exc.message, exc.details))
 
     @app.exception_handler(RequestValidationError)
     async def _invalid_request(_: Request, exc: RequestValidationError) -> JSONResponse:
@@ -85,9 +83,7 @@ def register_exception_handlers(app: FastAPI) -> None:
         errors = [{k: v for k, v in e.items() if k != "url"} for e in exc.errors()]
         return JSONResponse(
             status_code=422,
-            content=error_envelope(
-                ValidationFailed.code, "Request validation failed", jsonable_encoder(errors)
-            ),
+            content=error_envelope(ValidationFailed.code, "Request validation failed", jsonable_encoder(errors)),
         )
 
     @app.exception_handler(StarletteHTTPException)
@@ -101,6 +97,4 @@ def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(Exception)
     async def _unhandled(_: Request, exc: Exception) -> JSONResponse:
         logger.exception("unhandled error")
-        return JSONResponse(
-            status_code=500, content=error_envelope("internal_error", "An unexpected error occurred.")
-        )
+        return JSONResponse(status_code=500, content=error_envelope("internal_error", "An unexpected error occurred."))

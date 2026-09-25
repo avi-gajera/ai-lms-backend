@@ -125,9 +125,7 @@ def validate_questions(
 
 
 def _chunk_payload(chunks: list[TranscriptChunk], words: int = 220) -> list[dict]:
-    return [
-        {"id": c.id, "topic": c.topic, "text": " ".join(c.text.split()[:words])} for c in chunks
-    ]
+    return [{"id": c.id, "topic": c.topic, "text": " ".join(c.text.split()[:words])} for c in chunks]
 
 
 def generate_assessment(
@@ -146,9 +144,7 @@ def generate_assessment(
     if video.status != VideoStatus.INDEXED:
         raise Conflict(f"Video is not ready for assessment (status: {video.status})")
 
-    progress = (
-        db.query(LearnerProgress).filter_by(learner_id=learner_id, video_id=video_id).one_or_none()
-    )
+    progress = db.query(LearnerProgress).filter_by(learner_id=learner_id, video_id=video_id).one_or_none()
     watched = progress.progress if progress else 0.0
     if watched < settings.completion_threshold:
         raise Conflict(
@@ -180,9 +176,7 @@ def generate_assessment(
             if attempt:
                 topups[qtype] = need
                 logger.info("question top-up", extra={"type": qtype, "missing": need})
-            system, user = prompts.question_gen(
-                video.title, payload, qtype, need, [q.prompt for q in kept + have]
-            )
+            system, user = prompts.question_gen(video.title, payload, qtype, need, [q.prompt for q in kept + have])
             result = llm.structured(system, user, QUESTION_SET_SCHEMAS[qtype])
             candidates = [normalise_question(qtype, item) for item in result.questions]
             valid, rej = validate_questions(candidates, by_id)

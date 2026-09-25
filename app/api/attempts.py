@@ -25,10 +25,18 @@ def _attempt_out(attempt: Attempt) -> AttemptOut:
         percentage=round(100 * attempt.total_score / attempt.max_score, 1) if attempt.max_score else 0.0,
         answers=[
             AnswerResult(
-                question_id=a.question_id, position=a.question.position, type=a.question.type,
-                topic=a.question.topic, prompt=a.question.prompt, response=a.response, score=a.score,
-                is_correct=a.is_correct, feedback=a.feedback, improvement_areas=a.improvement_areas,
-                evaluator=a.evaluator, correct_answer=a.question.correct_answer,
+                question_id=a.question_id,
+                position=a.question.position,
+                type=a.question.type,
+                topic=a.question.topic,
+                prompt=a.question.prompt,
+                response=a.response,
+                score=a.score,
+                is_correct=a.is_correct,
+                feedback=a.feedback,
+                improvement_areas=a.improvement_areas,
+                evaluator=a.evaluator,
+                correct_answer=a.question.correct_answer,
                 reference_answer=a.question.reference_answer,
             )
             for a in answers
@@ -67,8 +75,11 @@ def submit_attempt(
 
     try:
         attempt = evaluate_attempt(
-            db, llm, settings,
-            assessment_id=body.assessment_id, learner_id=body.learner_id,
+            db,
+            llm,
+            settings,
+            assessment_id=body.assessment_id,
+            learner_id=body.learner_id,
             responses={a.question_id: a.response for a in body.answers},
         )
         build_report(db, llm, settings, attempt)
