@@ -318,12 +318,6 @@ pyproject.toml  tool config only (ruff, pytest)
 
 ## How this was built
 
-The project was built with [Claude Code](https://claude.com/claude-code) using the [AI-DLC](https://github.com/awslabs/aidlc-workflows) (AI-Driven Development Life Cycle) method, one commit per phase of the plan. These files belong to that tooling, not to the application:
-
-| Path | What it is |
-|---|---|
-| `.claude/`, `aidlc/`, `.mcp.aidlc-shipped.json` | The AI-DLC framework (third-party, from AWS Labs) and its rule files |
-| `CLAUDE.md` | Project instructions for Claude Code: stack, rules, commands, architecture |
-| `AI-Powered_LMS.md` | The original brief and implementation plan (phases 0–9) the build followed |
+The project was built with [Claude Code](https://claude.com/claude-code) using the [AI-DLC](https://github.com/awslabs/aidlc-workflows) (AI-Driven Development Life Cycle) method, one commit per phase of the plan. [`CLAUDE.md`](CLAUDE.md) holds the project instructions the assistant worked from: stack, rules, commands and architecture. The framework files themselves are kept out of the repository.
 
 All of the application is in `app/`, `alembic/`, `scripts/` and `tests/`. Every design choice is recorded in [docs/decisions.md](docs/decisions.md).

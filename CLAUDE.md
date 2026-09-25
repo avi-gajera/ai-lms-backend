@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # AI-Powered LMS Backend
 
-Backend-only Learning Management System: video → transcript → RAG index → assessment generation → answer evaluation → learning report. Full brief: `AI-Powered_LMS.md` (phases 0–9 in §7). User-facing docs: `README.md`; architecture diagram: `docs/architecture.md`; schema/ERD + vector layout: `docs/database.md`; every trade-off (D1–D27): `docs/decisions.md`; 10-minute demo script: `docs/walkthrough.md`.
+Backend-only Learning Management System: video → transcript → RAG index → assessment generation → answer evaluation → learning report. Full brief: `AI-Powered_LMS.md` (phases 0–9 in §7; local only, not in the public repo). User-facing docs: `README.md`; architecture diagram: `docs/architecture.md`; schema/ERD + vector layout: `docs/database.md`; every trade-off (D1–D27): `docs/decisions.md`; 10-minute demo script: `docs/walkthrough.md`.
 
 ## Stack
 
@@ -77,7 +77,7 @@ Layering: `app/api/` (HTTP only, no business logic) → `app/services/` (busines
 
 ## AI-DLC Workflow
 
-AI-DLC v2.9.0 (awslabs/aidlc-workflows, Claude runtime) is installed in `.claude/` (agents, skills, stage protocols, knowledge, sensors, tools, hooks) and `aidlc/` (method tree + intent records). The method rules are pulled into context by the `@.claude/rules/aidlc.md` import at the top of this file (→ `aidlc/spaces/default/memory/{org,team,project}.md` + phase rules). Edit the method there, never in `.claude/rules/`.
+AI-DLC v2.9.0 (awslabs/aidlc-workflows, Claude runtime) is installed in `.claude/` (agents, skills, stage protocols, knowledge, sensors, tools, hooks) and `aidlc/` (method tree + intent records). **These are local-only:** `.claude/`, `aidlc/`, `.mcp.aidlc-shipped.json` and `AI-Powered_LMS.md` are gitignored and were removed from the git history, so the public GitHub repo holds only the application — never `git add -f` them. The method rules are pulled into context by the `@.claude/rules/aidlc.md` import at the top of this file (→ `aidlc/spaces/default/memory/{org,team,project}.md` + phase rules). Edit the method there, never in `.claude/rules/`.
 
 - Start or resume a workflow with `/aidlc <description>`; `/aidlc --doctor` validates setup; `/aidlc --status` shows progress. Artifacts go under `aidlc/spaces/default/intents/<record>/`; application code goes at the repo root.
 - Stages stop at approval gates; keep **Inception short** for this project — requirements and design are already settled in `AI-Powered_LMS.md` and `docs/decisions.md`.
