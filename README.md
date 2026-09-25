@@ -1,5 +1,7 @@
 # AI-Powered LMS — Backend
 
+[![CI](https://github.com/avi-gajera/ai-lms-backend/actions/workflows/ci.yml/badge.svg)](https://github.com/avi-gajera/ai-lms-backend/actions/workflows/ci.yml)
+
 A Python backend for an AI-powered Learning Management System. It turns an educational video into retrievable knowledge, then uses that knowledge to assess the learner:
 
 1. **Video processing.** Upload a video (or point to a sample). Its speech is transcribed with faster-whisper, split into timestamped chunks, labelled by topic and embedded into Qdrant.
