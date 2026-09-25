@@ -59,7 +59,7 @@ A script for explaining the system out loud, in order. Each step says what to sh
 **Show:** [`06_report.md`](sample-outputs/inflation_khan/06_report.md).
 
 **Say:**
-- Every number (overall %, per topic, per type, strengths ≥ 80 %, weaknesses < 60 %, rewatch timestamps) is **computed**.
+- Every number (overall %, per topic, per type, strengths at a topic average score ≥ 0.8, weaknesses < 0.6, rewatch timestamps) is **computed**.
 - Only the summary and the suggestions come from the LLM. If that call fails, a template is used, so a report is always produced (D15).
 
 ## 7. Engineering quality (1 min)

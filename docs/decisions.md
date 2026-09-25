@@ -85,7 +85,7 @@ After chunking, the fast model labels the chunks in batches and is asked to reus
   - Unanswered questions score 0 without an LLM call.
 
 ### D15 — Learning report
-- **Computed deterministically:** overall %, per-type and per-topic accuracy and average score, strengths (topic accuracy ≥ 80%), weaknesses (< 60%), and deduplicated improvement areas.
+- **Computed deterministically:** overall %, per-type and per-topic accuracy and average score, strengths (topic **average score** ≥ 0.8), weaknesses (< 0.6), and deduplicated improvement areas. The average score is used rather than accuracy because short answers earn partial credit: a topic answered at 0.5 twice shows partial understanding, which accuracy (right/wrong only) would count as zero. Both thresholds are configurable (`STRENGTH_THRESHOLD`, `WEAKNESS_THRESHOLD`).
 - **One LLM call** writes the summary paragraph and suggestions, which point to video timestamps for weak topics.
 - **Fallback:** if the LLM call fails, a template summary is used. The report is always created.
 - This follows the same rule as everywhere else: compute what can be computed, and generate only the prose.

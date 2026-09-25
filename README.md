@@ -222,7 +222,7 @@ After generation the questions are validated: an MCQ must have exactly 4 distinc
 Every answer gets a `score`, `is_correct`, `feedback` and `improvement_areas`. Feedback for wrong answers points to the video segment to rewatch.
 
 ### Learning report
-The numbers are **computed**: overall %, performance band, per-type and per-topic accuracy, strengths (≥ 80%), weaknesses (< 60%) with rewatch timestamps, and deduplicated improvement areas. Only the **prose** is generated, in one LLM call for the summary and suggestions. If that call fails, a template summary is used (`summary_source: "template"`) and the report is still produced.
+The numbers are **computed**: overall %, performance band, per-type and per-topic accuracy, strengths (topic average score ≥ 0.8), weaknesses (< 0.6) with rewatch timestamps, and deduplicated improvement areas. Only the **prose** is generated, in one LLM call for the summary and suggestions. If that call fails, a template summary is used (`summary_source: "template"`) and the report is still produced.
 
 ### LLM integration
 - `app/llm/base.py` defines the `LLMProvider` interface. `GroqProvider` wraps LangChain's `ChatGroq.with_structured_output(method="json_schema", strict=True)`. `FakeLLMProvider` is the offline stand-in.
