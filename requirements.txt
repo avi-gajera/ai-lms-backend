@@ -14,6 +14,7 @@ celery[redis]>=5.4
 
 # --- Video / transcription (faster-whisper decodes audio via bundled PyAV) ---
 faster-whisper>=1.1
+yt-dlp>=2024.8.6           # POST /videos with a url: fetch the audio track (D27)
 
 # --- Embeddings + vector store ---
 sentence-transformers>=3.0

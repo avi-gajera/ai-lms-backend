@@ -17,9 +17,10 @@ A script for explaining the system out loud, in order. Each step says what to sh
 
 ## 2. Ingestion (1.5 min)
 
-**Show:** `POST /videos` in Swagger (`/docs`) with `sample_path=inflation_khan.mp4`. It returns **202** and a `task_id`. Then `GET /videos/{id}` until the status is `indexed`, and `GET /videos/{id}/chunks`.
+**Show:** `POST /videos` in Swagger (`/docs`) with `url=https://www.youtube.com/watch?v=AaR1mPrdbTc` (or `sample_path=inflation_khan.mp4` offline). It returns **202** and a `task_id`; the status goes `downloading → processing → transcribed → indexed`. Then `GET /videos/{id}` until the status is `indexed`, and `GET /videos/{id}/chunks`.
 
 **Say:**
+- For a link, only the audio track is downloaded (about 10× smaller, no ffmpeg), from an allowlist of hosts, with a length cap checked before downloading (D27).
 - faster-whisper transcribes on the CPU, with no system ffmpeg (D5, D17).
 - Chunks are cut on Whisper segment boundaries, so every chunk has exact timestamps. That is what lets the report say "rewatch 01:15–02:31" (D10).
 - The fast model labels topics, within a budget that scales with the video's length (D11, D20).
@@ -63,7 +64,7 @@ A script for explaining the system out loud, in order. Each step says what to sh
 
 ## 7. Engineering quality (1 min)
 
-**Show:** `pytest` (70 offline tests in about 5 s), `ruff check .`, and the [CI workflow](../.github/workflows/ci.yml).
+**Show:** `pytest` (87 offline tests in under 10 s), `ruff check .`, and the [CI workflow](../.github/workflows/ci.yml).
 
 **Say:**
 - The `LLMProvider` interface has a Groq implementation and a fake one, so the whole suite runs offline (D7).

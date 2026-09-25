@@ -45,7 +45,7 @@
           "videos"
         ],
         "summary": "Register a video and queue it for processing",
-        "description": "Provide **either** a multipart `file` upload **or** `sample_path` (a file name inside `sample_data/videos/`). Processing (transcription \u2192 chunking \u2192 topic labelling \u2192 embedding) runs in the background; poll `status_url` or `task_url`. Bodies over `MAX_UPLOAD_MB` are rejected with **413** as they stream in.",
+        "description": "Provide **exactly one** of: a multipart `file` upload, `sample_path` (a file name inside `sample_data/videos/`), or `url` (a YouTube or Vimeo link; hosts are limited by `URL_ALLOWED_DOMAINS`). For a `url`, the background job first downloads the audio track (status `downloading`) and refuses videos longer than `URL_MAX_DURATION_S`; if no `title` is given, the video's own title is used. Processing (transcription \u2192 chunking \u2192 topic labelling \u2192 embedding) runs in the background; poll `status_url` or `task_url`. Bodies over `MAX_UPLOAD_MB` are rejected with **413** as they stream in.",
         "operationId": "create_video_videos_post",
         "requestBody": {
           "content": {
@@ -887,6 +887,18 @@
             ],
             "title": "Sample Path"
           },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url",
+            "description": "YouTube / Vimeo link; the audio is downloaded in the background"
+          },
           "title": {
             "anyOf": [
               {
@@ -1423,6 +1435,17 @@
             "type": "string",
             "title": "Title"
           },
+          "source_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Url"
+          },
           "status": {
             "type": "string",
             "title": "Status"
@@ -1486,6 +1509,7 @@
         "required": [
           "id",
           "title",
+          "source_url",
           "status",
           "error",
           "duration_s",

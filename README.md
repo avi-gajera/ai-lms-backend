@@ -4,7 +4,7 @@
 
 A Python backend for an AI-powered Learning Management System. It turns an educational video into retrievable knowledge, then uses that knowledge to assess the learner:
 
-1. **Video processing.** Upload a video (or point to a sample). Its speech is transcribed with faster-whisper, split into timestamped chunks, labelled by topic and embedded into Qdrant.
+1. **Video processing.** Paste a **YouTube or Vimeo link**, upload a video, or point to a sample. Its speech is transcribed with faster-whisper, split into timestamped chunks, labelled by topic and embedded into Qdrant.
 2. **Retrieval.** Semantic search inside one video returns the matching transcript chunks with timestamps.
 3. **Assessment generation.** Once the learner's watch progress reaches the configured threshold (90% by default), the system generates grounded MCQ, true/false and short-answer questions that test understanding.
 4. **Answer evaluation.** MCQ and true/false are graded by deterministic rules. Short answers are graded by an LLM judge against a rubric and the source transcript. Each answer gets a score, a correct/incorrect verdict, feedback and areas of improvement.
@@ -110,7 +110,7 @@ docker compose cp api:/app/data/lms.db ./data/lms.db   # copy the SQLite databas
 - Inside Docker the SQLite file lives on a named volume, not a host bind mount. SQLite's WAL locking between the API and worker containers is only reliable on a real Linux filesystem ([D22](docs/decisions.md#d22--docker-sqlite-on-a-named-volume-shared-by-api-and-worker)).
 
 **What was verified on the Docker stack:**
-- 70/70 tests pass inside the dev image.
+- All tests pass inside the dev image.
 - The full flow works through Celery: ingestion, retrieval, generation, grading and the report.
 - **Crash recovery:** SIGKILL the worker mid-transcription (`docker compose kill worker && docker compose start worker`). The unacknowledged job is re-delivered and finishes once `CELERY_VISIBILITY_TIMEOUT` expires ([D23](docs/decisions.md#d23--crash-recovery-on-redis-needs-an-explicit-visibility-timeout-found-in-testing)).
 
@@ -143,9 +143,9 @@ Interactive docs are at **`/docs`** (Swagger) and **`/redoc`**. The exported spe
 
 | Method | Path | Purpose |
 |---|---|---|
-| `POST` | `/videos` | Register a video (multipart `file` **or** `sample_path`) and queue processing. Returns **202** with `task_id` |
+| `POST` | `/videos` | Register a video by **`url`** (YouTube/Vimeo link), multipart `file`, **or** `sample_path`, and queue processing. Returns **202** with `task_id` |
 | `GET` | `/videos` | List videos |
-| `GET` | `/videos/{id}` | Status (`pending → processing → transcribed → indexed`, or `failed`), metadata and topics |
+| `GET` | `/videos/{id}` | Status (`pending → [downloading →] processing → transcribed → indexed`, or `failed`), metadata and topics |
 | `GET` | `/videos/{id}/chunks` | Transcript chunks with timestamps and topics |
 | `POST` | `/videos/{id}/progress` | Report the learner's watch progress (simulates the player) |
 | `POST` | `/videos/{id}/retrieve` | Semantic search within the video |
@@ -166,8 +166,9 @@ Every error uses the same shape, and every response carries an `X-Request-ID` he
 ### Walkthrough with curl
 
 ```bash
-# Register a sample video → 202 {video_id, task_id, status_url, task_url}
-curl -X POST localhost:8000/videos -F sample_path=inflation_khan.mp4 -F "title=Introduction to inflation"
+# Register a video straight from a link → 202 {video_id, task_id, status_url, task_url}
+curl -X POST localhost:8000/videos -F "url=https://www.youtube.com/watch?v=AaR1mPrdbTc"
+# ...or a downloaded sample:  -F sample_path=inflation_khan.mp4 -F "title=Introduction to inflation"
 
 # Poll until status is "indexed"
 curl localhost:8000/videos/<video_id>
@@ -198,6 +199,7 @@ curl localhost:8000/attempts/<attempt_id>/report
 ## How it works
 
 ### Pipeline (background job)
+0. **Download** (link input only). yt-dlp fetches just the **audio track** of the linked video: about 10× smaller than the video, and a single stream needs no ffmpeg. Links are limited to allowlisted hosts (`URL_ALLOWED_DOMAINS`), and videos longer than `URL_MAX_DURATION_S` are refused before anything is downloaded. If no title was given, the video's own title is used ([D27](docs/decisions.md)).
 1. **Transcribe.** faster-whisper (`base`, int8, CPU) with VAD filtering. It decodes any audio or video container through its bundled PyAV, so no system ffmpeg is needed. The segments are stored, so a retried job skips this step.
 2. **Chunk.** Windows of about 220 words with about 40 words of overlap, cut on **Whisper segment boundaries**, so every chunk keeps exact timestamps.
 3. **Label topics.** The fast model labels the chunks in batches, within a topic budget that scales with the video's length. A deterministic cap enforces the budget. If labelling fails, chunks fall back to "General".
@@ -243,13 +245,14 @@ ruff check .            # lint (config in pyproject.toml)
 
 CI (`.github/workflows/ci.yml`) runs both on every push and pull request, on Python 3.12 with the locked dependencies.
 
-70 tests run fully offline in about 5 seconds, using a fake LLM, hashing embeddings, in-memory Qdrant, a temporary SQLite file and a fake transcriber:
+87 tests run fully offline in under 10 seconds, using a fake LLM, hashing embeddings, in-memory Qdrant, a temporary SQLite file, a fake transcriber and a fake downloader:
 
 - **Unit:** chunking; MCQ and true/false grading; question-count splitting, context selection and validation; report aggregation; topic capping; Groq retry and classification logic against a stubbed client.
 - **API (end to end):**
   - Ingestion, including the `failed` path, and idempotent re-processing.
   - Retrieval stays within one video.
   - Upload and path-traversal validation.
+  - Link input: download → index, the video's own title, retry reuses the file, download failures, and the host allowlist (including internal addresses such as `169.254.169.254`).
   - The progress threshold gate.
   - Assessment type mix, with correct answers hidden.
   - Perfect and mixed attempts, and attempt validation.
@@ -273,7 +276,9 @@ All settings are environment variables (or `.env`). The full list, with defaults
 | `TASK_BACKEND` | `local` | `celery` in Docker |
 | `QDRANT_URL` / `QDRANT_PATH` | unset / `data/qdrant` | Server vs. embedded |
 | `WHISPER_MODEL_SIZE` | `base` | `tiny` … `large-v3` |
-| `MAX_UPLOAD_MB` | `500` | Larger bodies are rejected with 413 while streaming |
+| `MAX_UPLOAD_MB` | `500` | Larger bodies are rejected with 413 while streaming; also the size cap for link downloads |
+| `URL_ALLOWED_DOMAINS` | `["youtube.com","youtu.be","vimeo.com"]` | Hosts accepted for `url` (subdomains included) |
+| `URL_MAX_DURATION_S` | `3600` | Longer linked videos are refused before downloading |
 | `COMPLETION_THRESHOLD` | `0.9` | Progress needed to unlock an assessment |
 | `DEFAULT_NUM_QUESTIONS` / `DEFAULT_QUESTION_MIX` | `8` / 40% MCQ, 20% T/F, 40% short | Can be overridden per request |
 
@@ -285,7 +290,7 @@ These are recorded in [docs/decisions.md §A](docs/decisions.md#a-assumptions).
 
 - There is no frontend, so `POST /videos/{id}/progress` simulates the player's completion signal.
 - Auth isn't specified, so `learner_id` is passed in the request body. `app/api/deps.py` is the place an auth dependency would plug in.
-- The API doesn't download YouTube URLs. Samples are fetched ahead of time by a script.
+- Links are accepted from an allowlist of video hosts only (YouTube and Vimeo by default), not arbitrary URLs. The sample videos can also be fetched ahead of time with a script.
 - Assessment generation and grading run synchronously inside the request, typically taking 5–40 s on the Groq free tier (see [Production notes](#production-notes) for proxy timeouts). Only video processing runs in the background. The same job pattern could be applied to them if needed.
 
 ## Project layout

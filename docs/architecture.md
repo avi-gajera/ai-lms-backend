@@ -47,7 +47,8 @@ flowchart TB
 
 The same diagram as text:
 
-1. **Ingest (async).** `POST /videos` stores the file, creates a `Video(pending)` row, and enqueues `process_video` on Redis. The Celery worker then works through these steps:
+1. **Ingest (async).** `POST /videos` stores the file (or, for a `url`, validates the link against the host allowlist), creates a `Video(pending)` row, and enqueues `process_video` on Redis. The Celery worker then works through these steps:
+   0. For a `url`: status `downloading`; yt-dlp checks the length, then downloads only the audio track (D27).
    1. The audio is decoded and resampled to 16 kHz mono (PyAV, with bundled FFmpeg libraries).
    2. faster-whisper produces timestamped segments.
    3. The segments are grouped into chunks with overlap.

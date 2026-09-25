@@ -33,6 +33,7 @@ class Base(DeclarativeBase):
 
 class VideoStatus(StrEnum):
     PENDING = "pending"
+    DOWNLOADING = "downloading"
     PROCESSING = "processing"
     TRANSCRIBED = "transcribed"
     INDEXED = "indexed"
@@ -50,7 +51,9 @@ class Video(Base):
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
     title: Mapped[str] = mapped_column(String(255))
-    source_path: Mapped[str] = mapped_column(String(1024))
+    # Local media file. Null for a `source_url` video until the job has downloaded it.
+    source_path: Mapped[str | None] = mapped_column(String(1024))
+    source_url: Mapped[str | None] = mapped_column(String(2048))
     status: Mapped[str] = mapped_column(String(20), default=VideoStatus.PENDING, index=True)
     error: Mapped[str | None] = mapped_column(Text)
     duration_s: Mapped[float | None] = mapped_column(Float)

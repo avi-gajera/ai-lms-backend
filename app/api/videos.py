@@ -22,6 +22,7 @@ from app.schemas.api import (
     VideoOut,
 )
 from app.services import retrieval
+from app.services.downloader import validate_url
 from app.services.grading import fmt_ts
 from app.workers.dispatch import enqueue_process_video
 
@@ -39,7 +40,7 @@ def _get_video(db: Session, video_id: str) -> Video:
 def _video_out(video: Video) -> VideoOut:
     topics = list(dict.fromkeys(c.topic for c in video.chunks))
     return VideoOut(
-        id=video.id, title=video.title, status=video.status, error=video.error,
+        id=video.id, title=video.title, source_url=video.source_url, status=video.status, error=video.error,
         duration_s=video.duration_s, language=video.language, chunk_count=len(video.chunks),
         topics=topics, created_at=video.created_at, updated_at=video.updated_at,
     )
@@ -88,31 +89,37 @@ def _save_upload(upload: UploadFile, settings: Settings) -> Path:
     status_code=status.HTTP_202_ACCEPTED,
     summary="Register a video and queue it for processing",
     description=(
-        "Provide **either** a multipart `file` upload **or** `sample_path` (a file name inside "
-        "`sample_data/videos/`). Processing (transcription → chunking → topic labelling → "
-        "embedding) runs in the background; poll `status_url` or `task_url`. Bodies over "
-        "`MAX_UPLOAD_MB` are rejected with **413** as they stream in."
+        "Provide **exactly one** of: a multipart `file` upload, `sample_path` (a file name inside "
+        "`sample_data/videos/`), or `url` (a YouTube or Vimeo link; hosts are limited by "
+        "`URL_ALLOWED_DOMAINS`). For a `url`, the background job first downloads the audio track "
+        "(status `downloading`) and refuses videos longer than `URL_MAX_DURATION_S`; if no `title` "
+        "is given, the video's own title is used. Processing (transcription → chunking → topic "
+        "labelling → embedding) runs in the background; poll `status_url` or `task_url`. Bodies "
+        "over `MAX_UPLOAD_MB` are rejected with **413** as they stream in."
     ),
 )
 def create_video(
     file: UploadFile | None = File(default=None),
     sample_path: str | None = Form(default=None),
+    url: str | None = Form(default=None, description="YouTube / Vimeo link; the audio is downloaded in the background"),
     title: str | None = Form(default=None),
     db: Session = Depends(get_db),
     settings: Settings = Depends(get_settings_dep),
 ) -> VideoAccepted:
-    if bool(file and file.filename) == bool(sample_path):
-        raise ValidationFailed("Provide exactly one of `file` or `sample_path`")
+    if sum((bool(file and file.filename), bool(sample_path), bool(url))) != 1:
+        raise ValidationFailed("Provide exactly one of `file`, `sample_path` or `url`")
 
-    if sample_path:
+    if url:
+        source_url = validate_url(url, settings)
+        video = Video(title=(title or source_url).strip()[:255], source_url=source_url)
+    elif sample_path:
         path = _resolve_sample(sample_path, settings)
         _check_extension(path.name, settings)
-        default_title = path.stem
+        video = Video(title=(title or path.stem.replace("_", " ")).strip()[:255], source_path=str(path))
     else:
         path = _save_upload(file, settings)  # type: ignore[arg-type]
-        default_title = Path(file.filename).stem  # type: ignore[union-attr]
-
-    video = Video(title=(title or default_title.replace("_", " ")).strip()[:255], source_path=str(path))
+        default_title = Path(file.filename).stem.replace("_", " ")  # type: ignore[union-attr]
+        video = Video(title=(title or default_title).strip()[:255], source_path=str(path))
     db.add(video)
     db.commit()
 

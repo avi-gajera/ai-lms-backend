@@ -81,6 +81,10 @@ class Settings(BaseSettings):
     allowed_video_extensions: list[str] = Field(
         default=[".mp4", ".mkv", ".webm", ".mov", ".avi", ".m4a", ".mp3", ".wav"]
     )
+    # POST /videos with `url`: the audio is fetched with yt-dlp in the background job (D27).
+    # Allowlisted hosts (subdomains included) — also keeps the server from fetching internal addresses.
+    url_allowed_domains: list[str] = Field(default=["youtube.com", "youtu.be", "vimeo.com"])
+    url_max_duration_s: int = 3600  # longer videos are refused before downloading (Groq quota, CPU time)
 
     # --- Chunking / retrieval ---
     chunk_target_words: int = 220

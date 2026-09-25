@@ -17,8 +17,9 @@ erDiagram
     videos {
         string id PK "uuid"
         string title
-        string source_path
-        string status "pending|processing|transcribed|indexed|failed"
+        string source_path "local media file; null for a url video until downloaded"
+        string source_url "YouTube/Vimeo link, if registered by url"
+        string status "pending|downloading|processing|transcribed|indexed|failed"
         text error
         float duration_s
         string language

@@ -1,16 +1,20 @@
 """Video → retrievable knowledge pipeline (runs inside the Celery task).
 
-    pending → processing → [transcribe] → transcribed → [chunk → label topics → embed/index] → indexed
-                                       ↘ failed (on a permanent error, with the error message)
+    pending → [downloading] → processing → [transcribe] → transcribed → [chunk → label topics → embed/index] → indexed
+                                                     ↘ failed (on a permanent error, with the error message)
+
+`downloading` only happens for videos registered by `url` (audio fetched with yt-dlp, D27).
 
 Each stage commits its result, and every write is an upsert keyed by (video_id, chunk_index), so a
 job that is retried or re-delivered after a worker crash converges to the same state instead of
-duplicating data. A retry after transcription reuses the stored segments (no second Whisper pass).
+duplicating data. A retry after transcription reuses the stored segments (no second Whisper pass),
+and a retry after a download reuses the downloaded file.
 """
 
 import math
 import time
 from collections.abc import Callable
+from pathlib import Path
 
 from sqlalchemy.orm import Session
 
@@ -23,6 +27,7 @@ from app.llm.base import LLMProvider
 from app.llm.schemas import TopicLabels
 from app.services import retrieval
 from app.services.chunking import Chunk, Segment, chunk_segments
+from app.services.downloader import Downloaded, download_audio
 from app.services.transcription import Transcript, transcribe
 
 logger = get_logger(__name__)
@@ -102,12 +107,25 @@ def run(
     settings: Settings,
     video_id: str,
     transcriber: Callable[[str], Transcript] | None = None,
+    downloader: Callable[[str, str, str, Settings], Downloaded] | None = None,
 ) -> Video:
     transcriber = transcriber or transcribe
+    downloader = downloader or download_audio
     video = db.get(Video, video_id)
     if video is None:
         raise NotFound(f"Video {video_id} not found")
     t0 = time.perf_counter()
+
+    # 0. Download (URL videos only; skipped once the file is on disk).
+    if video.source_url and not (video.source_path and Path(video.source_path).is_file()):
+        _set_status(db, video, VideoStatus.DOWNLOADING)
+        dl = downloader(video.source_url, settings.video_storage_dir, video.id, settings)
+        video.source_path = str(dl.path)
+        if dl.title and video.title == video.source_url[:255]:  # no title was given: use the real one
+            video.title = dl.title[:255]
+        db.commit()
+        logger.info("downloaded", extra={"video_id": video_id, "elapsed_s": round(time.perf_counter() - t0, 1)})
+
     _set_status(db, video, VideoStatus.PROCESSING)
 
     # 1. Transcribe (skipped if a previous attempt already stored the segments).

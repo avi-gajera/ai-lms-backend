@@ -26,6 +26,7 @@ class VideoAccepted(BaseModel):
 class VideoOut(_Out):
     id: str
     title: str
+    source_url: str | None
     status: str
     error: str | None
     duration_s: float | None
